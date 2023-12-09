@@ -39,10 +39,15 @@ export class SaleUseCases {
 
   async update(id: number, saleDto: UpdateSaleDto): Promise<Sale> {
     const sale = await this.repository.findById(id);
+    const updatedEntity = this.updateEntity(sale, saleDto);
+    return this.repository.update(updatedEntity);
+  }
+
+  private updateEntity(sale: Sale, saleDto: UpdateSaleDto): Sale {
     sale.carId = saleDto.carId;
     sale.clientId = saleDto.clientId;
     sale.salesPersonId = saleDto.salespersonId;
     sale.price = saleDto.price;
-    return this.repository.update(sale);
+    return sale;
   }
 }

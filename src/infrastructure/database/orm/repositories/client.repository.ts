@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateClientDto } from '../../../../application/dto/client/create-client.dto';
@@ -6,7 +5,6 @@ import { Client } from '../../../../domain/entities/client.entity';
 import { ClientRepository } from '../../../../domain/repositories/client.repository';
 import { ClientEntity } from '../entities/client.entity';
 
-@Injectable()
 export class ClientOrmRepository implements ClientRepository {
   constructor(
     @InjectRepository(ClientEntity)
@@ -47,14 +45,14 @@ export class ClientOrmRepository implements ClientRepository {
     }
     return new Client(
       client.id,
+      client.nationalId,
+      client.createdAt,
+      client.updatedAt,
       client.name,
       client.email,
       client.password,
       client.phone,
-      client.nationalId,
       client.address,
-      client.createdAt,
-      client.updatedAt,
     );
   }
 }

@@ -33,13 +33,18 @@ export class ClientUseCases {
 
   async update(id: number, clientDto: UpdateClientDto): Promise<ClientDto> {
     const client = await this.repository.findById(id);
+    const updatedEntity = this.updateEntity(client, clientDto);
+    const updatedClient = await this.repository.update(updatedEntity);
+    return this.removePassword(updatedClient);
+  }
+
+  private updateEntity(client: Client, clientDto: UpdateClientDto): Client {
     client.name = clientDto.name;
     client.email = clientDto.email;
     client.phone = clientDto.phone;
     client.address = clientDto.address;
     client.password = clientDto.password;
-    const updatedClient = await this.repository.update(client);
-    return this.removePassword(updatedClient);
+    return client;
   }
 
   private removePassword(client: Client): ClientDto {
