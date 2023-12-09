@@ -8,37 +8,37 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateSalesPersonDto } from '../../../application/dto/salesperson/create-salesperson.dto';
-import { UpdateSalesPersonDto } from '../../../application/dto/salesperson/update-salesperson.dto';
-import { SalespersonUseCases } from '../../../application/use-cases/salesperson.use-cases';
+import { CreateSalespersonDto } from '../../../application/dto/salesperson/create-salesperson.dto';
+import { UpdateSalespersonDto } from '../../../application/dto/salesperson/update-salesperson.dto';
+import { SalespersonService } from '../../services/salesperson.service';
 
 @Controller('salespeople')
 export class SalespersonController {
-  constructor(private salespersonUseCases: SalespersonUseCases) {}
+  constructor(private service: SalespersonService) {}
 
   @Get()
   findAll() {
-    return this.salespersonUseCases.findAll();
+    return this.service.findAll();
   }
 
   @Get(':id')
   findById(@Param() id: number) {
-    return this.salespersonUseCases.findById(id);
+    return this.service.findById(id);
   }
 
   @Post()
-  create(@Body() salesperson: CreateSalesPersonDto) {
-    return this.salespersonUseCases.create(salesperson);
+  create(@Body() salesperson: CreateSalespersonDto) {
+    return this.service.create(salesperson);
   }
 
   @Put(':id')
-  update(@Param() id: number, @Body() salesperson: UpdateSalesPersonDto) {
-    return this.salespersonUseCases.update(id, salesperson);
+  update(@Param() id: number, @Body() salesperson: UpdateSalespersonDto) {
+    return this.service.update(id, salesperson);
   }
 
   @HttpCode(204)
   @Delete(':id')
   delete(@Param() id: number) {
-    return this.salespersonUseCases.delete(id);
+    return this.service.delete(id);
   }
 }

@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateSalesPersonDto } from '../../../application/dto/salesperson/create-salesperson.dto';
-import { UpdateSalesPersonDto } from '../../../application/dto/salesperson/update-salesperson.dto';
+import { CreateSalespersonDto } from '../../../application/dto/salesperson/create-salesperson.dto';
+import { UpdateSalespersonDto } from '../../../application/dto/salesperson/update-salesperson.dto';
 import { SalesPerson } from '../../../domain/entities/salesperson.entity';
 import { SalespersonRepository } from '../../../domain/repositories/salesperson.repository';
 import { Repository } from 'typeorm';
@@ -22,7 +22,7 @@ export class SalespersonOrmRepository implements SalespersonRepository {
     return this.toDomainEntity(dbSalesPerson);
   }
 
-  async create(salesperson: CreateSalesPersonDto): Promise<SalesPerson> {
+  async create(salesperson: CreateSalespersonDto): Promise<SalesPerson> {
     const dbSalesPerson = await this.repository.save(salesperson);
     return this.toDomainEntity(dbSalesPerson);
   }
@@ -34,7 +34,7 @@ export class SalespersonOrmRepository implements SalespersonRepository {
 
   async update(
     id: number,
-    salesperson: UpdateSalesPersonDto,
+    salesperson: UpdateSalespersonDto,
   ): Promise<SalesPerson> {
     await this.repository.update({ id }, salesperson);
     const updatedSalesPerson = await this.repository.findOne({ where: { id } });
