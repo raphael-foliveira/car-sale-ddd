@@ -1,12 +1,12 @@
-import { Car } from '../../../domain/entities/car.entity';
-import { Salesperson } from '../../../domain/entities/salesperson.entity';
+import { CarDto } from '../car/car.dto';
 import { ClientDto } from '../client/client.dto';
+import { SalespersonDto } from '../salesperson/salesperson.dto';
 
 export interface SaleDetailedDto {
   id: number;
-  car: Car;
+  car: CarDto;
   client: ClientDto;
-  salesperson: Salesperson;
+  salesperson: SalespersonDto;
   price: number;
   discount: number;
   createdAt: Date;

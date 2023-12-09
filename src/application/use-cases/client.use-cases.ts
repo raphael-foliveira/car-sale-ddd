@@ -40,7 +40,6 @@ export class ClientUseCases {
   }
 
   private updateEntity(client: Client, clientDto: UpdateClientDto): Client {
-    client.name = clientDto.name;
     client.email = clientDto.email;
     client.phone = clientDto.phone;
     client.address = clientDto.address;

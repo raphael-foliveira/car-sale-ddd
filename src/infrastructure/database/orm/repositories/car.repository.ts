@@ -50,6 +50,8 @@ export class CarOrmRepository implements CarRepository {
     }
     return new Car(
       car.id,
+      car.createdAt,
+      car.updatedAt,
       car.brand,
       car.color,
       car.model,

@@ -1,7 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SaleDetailedDto } from '../../../../application/dto/sale/sale-detailed.dto';
-import { Car } from '../../../../domain/entities/car.entity';
 import { Sale } from '../../../../domain/entities/sale.entity';
 import { SaleRepository } from '../../../../domain/repositories/sale.repository';
 import { SaleEntity } from '../entities/sale.entity';
@@ -68,19 +67,18 @@ export class SaleOrmRepository implements SaleRepository {
       sale.discount,
     );
   }
-
   private toSaleDetailed(sale: SaleEntity): SaleDetailedDto {
     const { car, client, salesperson } = sale;
     return {
       id: sale.id,
-      car: new Car(
-        car.id,
-        car.brand,
-        car.color,
-        car.model,
-        car.year,
-        car.price,
-      ),
+      car: {
+        id: car.id,
+        brand: car.brand,
+        color: car.color,
+        model: car.model,
+        year: car.year,
+        price: car.price,
+      },
       client: {
         id: client.id,
         name: client.name,
@@ -91,7 +89,14 @@ export class SaleOrmRepository implements SaleRepository {
         createdAt: client.createdAt,
         updatedAt: client.updatedAt,
       },
-      salesperson,
+      salesperson: {
+        id: salesperson.id,
+        name: salesperson.name,
+        email: salesperson.email,
+        phone: salesperson.phone,
+        nationalId: salesperson.nationalId,
+        address: salesperson.address,
+      },
       price: sale.price,
       discount: sale.discount,
       createdAt: sale.createdAt,

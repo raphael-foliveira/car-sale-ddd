@@ -31,7 +31,11 @@ export class SaleUseCases {
     );
     const client = await this.clientRepository.findById(sale.clientId);
     return {
-      ...sale,
+      id: sale.id,
+      createdAt: sale.createdAt,
+      discount: sale.discount,
+      updatedAt: sale.updatedAt,
+      price: sale.finalPrice,
       car,
       salesperson,
       client,
@@ -58,7 +62,7 @@ export class SaleUseCases {
     sale.carId = saleDto.carId;
     sale.clientId = saleDto.clientId;
     sale.salesPersonId = saleDto.salespersonId;
-    sale.price = saleDto.price;
+    sale.finalPrice = saleDto.price;
     return sale;
   }
 
