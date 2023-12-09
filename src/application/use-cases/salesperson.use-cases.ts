@@ -33,7 +33,7 @@ export class SalespersonUseCases {
     salespersonDto: UpdateSalespersonDto,
   ): Promise<Salesperson> {
     const salesperson = await this.repository.findById(id);
-    const updatedEntity = await this.updateEntity(salesperson, salespersonDto);
+    const updatedEntity = this.updateEntity(salesperson, salespersonDto);
     return this.repository.update(updatedEntity);
   }
 

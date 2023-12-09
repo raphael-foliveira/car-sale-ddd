@@ -39,7 +39,7 @@ export class SaleUseCases {
 
   async update(id: number, saleDto: UpdateSaleDto): Promise<Sale> {
     const sale = await this.repository.findById(id);
-    const updatedEntity = await this.updateEntity(sale, saleDto);
+    const updatedEntity = this.updateEntity(sale, saleDto);
     return this.repository.update(updatedEntity);
   }
 
