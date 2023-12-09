@@ -1,31 +1,41 @@
-import { SaleDetailedDto } from '../../application/dto/sale/sale-detailed.dto';
 import { UpdateSaleDto } from '../../application/dto/sale/update-sale.dto';
 import { SaleNotFoundError } from '../../application/errors/sale.errors';
 import { Sale } from '../../domain/entities/sale.entity';
+import { CarRepository } from '../../domain/repositories/car.repository';
+import { ClientRepository } from '../../domain/repositories/client.repository';
 import { SaleRepository } from '../../domain/repositories/sale.repository';
+import { SalespersonRepository } from '../../domain/repositories/salesperson.repository';
 import { CreateSaleDto } from '../dto/sale/create-sale.dto';
+import { SaleDetailedDto } from '../dto/sale/sale-detailed.dto';
 
 export class SaleUseCases {
-  constructor(private repository: SaleRepository) {}
+  constructor(
+    private repository: SaleRepository,
+    private carRepository: CarRepository,
+    private salespersonRepository: SalespersonRepository,
+    private clientRepository: ClientRepository,
+  ) {}
 
   findAll(): Promise<Sale[]> {
     return this.repository.findAll();
   }
 
-  async findById(id: number): Promise<Sale> {
+  async findById(id: number): Promise<SaleDetailedDto> {
     const sale = await this.repository.findById(id);
     if (!sale) {
       throw new SaleNotFoundError();
     }
-    return sale;
-  }
-
-  async findDetailedById(id: number): Promise<SaleDetailedDto> {
-    const sale = await this.repository.findDatailedById(id);
-    if (!sale) {
-      throw new SaleNotFoundError();
-    }
-    return sale;
+    const car = await this.carRepository.findById(sale.carId);
+    const salesperson = await this.salespersonRepository.findById(
+      sale.salesPersonId,
+    );
+    const client = await this.clientRepository.findById(sale.clientId);
+    return {
+      ...sale,
+      car,
+      salesperson,
+      client,
+    };
   }
 
   create(sale: CreateSaleDto): Promise<Sale> {
