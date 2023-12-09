@@ -10,11 +10,11 @@ import {
 } from '@nestjs/common';
 import { CreateSaleDto } from '../../../application/dto/sale/create-sale.dto';
 import { UpdateSaleDto } from '../../../application/dto/sale/update-sale.dto';
-import { SaleService } from '../../services/sale.service';
+import { SaleAdapter } from '../../adapters/sale.adapter';
 
 @Controller('sales')
 export class SaleController {
-  constructor(private service: SaleService) {}
+  constructor(private service: SaleAdapter) {}
 
   @Get()
   findAll() {

@@ -5,7 +5,7 @@ import { ClientUseCases } from '../../application/use-cases/client.use-cases';
 import { ClientRepository } from '../../domain/repositories/client.repository';
 
 @Injectable()
-export class ClientService {
+export class ClientAdapter {
   private useCases: ClientUseCases;
 
   constructor(@Inject('CarRepository') private repository: ClientRepository) {

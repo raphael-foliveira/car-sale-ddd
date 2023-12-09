@@ -9,11 +9,11 @@ import {
   Put,
 } from '@nestjs/common';
 import { CreateClientDto } from '../../../application/dto/client/create-client.dto';
-import { ClientService } from '../../services/client.service';
+import { ClientAdapter } from '../../adapters/client.adapter';
 
 @Controller('clients')
 export class ClientController {
-  constructor(private service: ClientService) {}
+  constructor(private service: ClientAdapter) {}
 
   @Get()
   findAll() {

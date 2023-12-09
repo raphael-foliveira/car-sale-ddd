@@ -10,11 +10,11 @@ import {
 } from '@nestjs/common';
 import { CreateCarDto } from '../../../application/dto/car/create-car.dto';
 import { UpdateCarDto } from '../../../application/dto/car/update-car.dto';
-import { CarService } from '../../services/car.service';
+import { CarAdapter } from '../../adapters/car.adapter';
 
 @Controller('cars')
 export class CarController {
-  constructor(private readonly service: CarService) {}
+  constructor(private readonly service: CarAdapter) {}
 
   @Get()
   findAll() {
