@@ -1,14 +1,12 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Sale } from '../../domain/entities/sale.entity';
 import { SaleRepository } from '../../domain/repositories/sale.repository';
 import { CreateSaleDto } from '../dto/sale/create-sale.dto';
-import { UpdateSaleDto } from '../dto/sale/update-sale.dto';
-import { Sale } from '../../domain/entities/sale.entity';
 import { SaleDetailedDto } from '../dto/sale/sale-detailed.dto';
+import { UpdateSaleDto } from '../dto/sale/update-sale.dto';
 import { SaleNotFoundError } from '../errors/sale.errors';
 
-@Injectable()
 export class SaleUseCases {
-  constructor(@Inject('SaleRepository') private repository: SaleRepository) {}
+  constructor(private repository: SaleRepository) {}
 
   findAll(): Promise<Sale[]> {
     return this.repository.findAll();

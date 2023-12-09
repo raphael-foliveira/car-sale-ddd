@@ -1,15 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { SalespersonRepository } from '../../domain/repositories/salesperson.repository';
-import { CreateSalesPersonDto } from '../dto/salesperson/create-salesperson.dto';
-import { UpdateSalesPersonDto } from '../dto/salesperson/update-salesperson.dto';
 import { SalesPerson } from '../../domain/entities/salesperson.entity';
+import { SalespersonRepository } from '../../domain/repositories/salesperson.repository';
+import { CreateSalespersonDto } from '../dto/salesperson/create-salesperson.dto';
+import { UpdateSalespersonDto } from '../dto/salesperson/update-salesperson.dto';
 import { SalespersonNotFoundError } from '../errors/salesperson.errors';
 
-@Injectable()
 export class SalespersonUseCases {
-  constructor(
-    @Inject('SalespersonRepository') private repository: SalespersonRepository,
-  ) {}
+  constructor(private repository: SalespersonRepository) {}
 
   async findAll(): Promise<SalesPerson[]> {
     const salesperson = await this.repository.findAll();
@@ -23,7 +19,7 @@ export class SalespersonUseCases {
     return this.repository.findById(id);
   }
 
-  create(car: CreateSalesPersonDto): Promise<SalesPerson> {
+  create(car: CreateSalespersonDto): Promise<SalesPerson> {
     return this.repository.create(car);
   }
 
@@ -32,7 +28,7 @@ export class SalespersonUseCases {
     return this.repository.delete(id);
   }
 
-  async update(id: number, car: UpdateSalesPersonDto): Promise<SalesPerson> {
+  async update(id: number, car: UpdateSalespersonDto): Promise<SalesPerson> {
     await this.findById(id);
     return this.repository.update(id, car);
   }

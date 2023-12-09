@@ -1,13 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { Car } from '../../domain/entities/car.entity';
 import { CarRepository } from '../../domain/repositories/car.repository';
 import { CreateCarDto } from '../dto/car/create-car.dto';
 import { UpdateCarDto } from '../dto/car/update-car.dto';
 import { CarNotFoundError } from '../errors/car.errors';
 
-@Injectable()
 export class CarUseCases {
-  constructor(@Inject('CarRepository') private repository: CarRepository) {}
+  constructor(private repository: CarRepository) {}
 
   findAll(): Promise<Car[]> {
     return this.repository.findAll();

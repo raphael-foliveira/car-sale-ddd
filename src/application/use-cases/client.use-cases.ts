@@ -1,16 +1,12 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Client } from '../../domain/entities/client.entity';
 import { ClientRepository } from '../../domain/repositories/client.repository';
+import { ClientDto } from '../dto/client/client.dto';
 import { CreateClientDto } from '../dto/client/create-client.dto';
 import { UpdateClientDto } from '../dto/client/update-client.dto';
-import { Client } from '../../domain/entities/client.entity';
-import { ClientDto } from '../dto/client/client.dto';
 import { ClientNotFoundError } from '../errors/client.errors';
 
-@Injectable()
 export class ClientUseCases {
-  constructor(
-    @Inject('ClientRepository') private repository: ClientRepository,
-  ) {}
+  constructor(private repository: ClientRepository) {}
   async findAll(): Promise<ClientDto[]> {
     const clients = await this.repository.findAll();
     return clients.map(this.removePassword);

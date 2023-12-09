@@ -8,36 +8,36 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ClientUseCases } from '../../../application/use-cases/client.use-cases';
 import { CreateClientDto } from '../../../application/dto/client/create-client.dto';
+import { ClientService } from '../../services/client.service';
 
 @Controller('clients')
 export class ClientController {
-  constructor(private clientUseCases: ClientUseCases) {}
+  constructor(private service: ClientService) {}
 
   @Get()
   findAll() {
-    return this.clientUseCases.findAll();
+    return this.service.findAll();
   }
 
   @Get(':id')
   findById(@Param('id') id: number) {
-    return this.clientUseCases.findById(id);
+    return this.service.findById(id);
   }
 
   @Post()
   create(@Body() @Body() client: CreateClientDto) {
-    return this.clientUseCases.create(client);
+    return this.service.create(client);
   }
 
   @Put(':id')
   update(@Param('id') id: number, @Body() client: CreateClientDto) {
-    return this.clientUseCases.update(id, client);
+    return this.service.update(id, client);
   }
 
   @HttpCode(204)
   @Delete(':id')
   delete(@Param('id') id: number) {
-    return this.clientUseCases.delete(+id);
+    return this.service.delete(+id);
   }
 }
