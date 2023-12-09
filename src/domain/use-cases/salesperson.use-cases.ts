@@ -1,8 +1,8 @@
-import { Salesperson } from '../../domain/entities/salesperson.entity';
-import { SalespersonRepository } from '../../domain/repositories/salesperson.repository';
-import { CreateSalespersonDto } from '../dto/salesperson/create-salesperson.dto';
-import { UpdateSalespersonDto } from '../dto/salesperson/update-salesperson.dto';
-import { SalespersonNotFoundError } from '../errors/salesperson.errors';
+import { Salesperson } from '../entities/salesperson.entity';
+import { SalespersonRepository } from '../repositories/salesperson.repository';
+import { CreateSalespersonDto } from '../../application/dto/salesperson/create-salesperson.dto';
+import { UpdateSalespersonDto } from '../../application/dto/salesperson/update-salesperson.dto';
+import { SalespersonNotFoundError } from '../../application/errors/salesperson.errors';
 
 export class SalespersonUseCases {
   constructor(private repository: SalespersonRepository) {}

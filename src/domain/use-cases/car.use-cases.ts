@@ -1,8 +1,8 @@
-import { Car } from '../../domain/entities/car.entity';
-import { CarRepository } from '../../domain/repositories/car.repository';
-import { CreateCarDto } from '../dto/car/create-car.dto';
-import { UpdateCarDto } from '../dto/car/update-car.dto';
-import { CarNotFoundError } from '../errors/car.errors';
+import { Car } from '../entities/car.entity';
+import { CarRepository } from '../repositories/car.repository';
+import { CreateCarDto } from '../../application/dto/car/create-car.dto';
+import { UpdateCarDto } from '../../application/dto/car/update-car.dto';
+import { CarNotFoundError } from '../../application/errors/car.errors';
 
 export class CarUseCases {
   constructor(private repository: CarRepository) {}

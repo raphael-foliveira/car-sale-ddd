@@ -1,9 +1,9 @@
-import { Sale } from '../../domain/entities/sale.entity';
-import { SaleRepository } from '../../domain/repositories/sale.repository';
-import { CreateSaleDto } from '../dto/sale/create-sale.dto';
-import { SaleDetailedDto } from '../dto/sale/sale-detailed.dto';
-import { UpdateSaleDto } from '../dto/sale/update-sale.dto';
-import { SaleNotFoundError } from '../errors/sale.errors';
+import { Sale } from '../entities/sale.entity';
+import { SaleRepository } from '../repositories/sale.repository';
+import { CreateSaleDto } from '../../application/dto/sale/create-sale.dto';
+import { SaleDetailedDto } from '../../application/dto/sale/sale-detailed.dto';
+import { UpdateSaleDto } from '../../application/dto/sale/update-sale.dto';
+import { SaleNotFoundError } from '../../application/errors/sale.errors';
 
 export class SaleUseCases {
   constructor(private repository: SaleRepository) {}

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateClientDto } from '../../application/dto/client/create-client.dto';
 import { UpdateClientDto } from '../../application/dto/client/update-client.dto';
-import { ClientUseCases } from '../../application/use-cases/client.use-cases';
+import { ClientUseCases } from '../../domain/use-cases/client.use-cases';
 import { ClientRepository } from '../../domain/repositories/client.repository';
 
 @Injectable()
