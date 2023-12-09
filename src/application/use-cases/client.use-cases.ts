@@ -1,9 +1,9 @@
-import { Client } from '../entities/client.entity';
-import { ClientRepository } from '../repositories/client.repository';
 import { ClientDto } from '../../application/dto/client/client.dto';
-import { CreateClientDto } from '../../application/dto/client/create-client.dto';
 import { UpdateClientDto } from '../../application/dto/client/update-client.dto';
 import { ClientNotFoundError } from '../../application/errors/client.errors';
+import { Client } from '../../domain/entities/client.entity';
+import { ClientRepository } from '../../domain/repositories/client.repository';
+import { CreateClientDto } from '../dto/client/create-client.dto';
 
 export class ClientUseCases {
   constructor(private repository: ClientRepository) {}
@@ -22,7 +22,8 @@ export class ClientUseCases {
   }
 
   async create(client: CreateClientDto): Promise<ClientDto> {
-    const newClient = await this.repository.create(client);
+    const entity = this.createDtoToEntity(client);
+    const newClient = await this.repository.create(entity);
     return this.removePassword(newClient);
   }
 
@@ -58,5 +59,19 @@ export class ClientUseCases {
       createdAt: client.createdAt,
       updatedAt: client.updatedAt,
     };
+  }
+
+  private createDtoToEntity(client: CreateClientDto): Client {
+    return new Client(
+      null,
+      client.nationalId,
+      null,
+      null,
+      client.name,
+      client.email,
+      client.password,
+      client.phone,
+      client.address,
+    );
   }
 }

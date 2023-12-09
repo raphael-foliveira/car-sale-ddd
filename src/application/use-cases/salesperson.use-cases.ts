@@ -1,8 +1,8 @@
-import { Salesperson } from '../entities/salesperson.entity';
-import { SalespersonRepository } from '../repositories/salesperson.repository';
-import { CreateSalespersonDto } from '../../application/dto/salesperson/create-salesperson.dto';
 import { UpdateSalespersonDto } from '../../application/dto/salesperson/update-salesperson.dto';
 import { SalespersonNotFoundError } from '../../application/errors/salesperson.errors';
+import { Salesperson } from '../../domain/entities/salesperson.entity';
+import { SalespersonRepository } from '../../domain/repositories/salesperson.repository';
+import { CreateSalespersonDto } from '../dto/salesperson/create-salesperson.dto';
 
 export class SalespersonUseCases {
   constructor(private repository: SalespersonRepository) {}
@@ -20,7 +20,8 @@ export class SalespersonUseCases {
   }
 
   create(salesperson: CreateSalespersonDto): Promise<Salesperson> {
-    return this.repository.create(salesperson);
+    const salespersonEntity = this.createDtoToEntity(salesperson);
+    return this.repository.create(salespersonEntity);
   }
 
   async delete(id: number): Promise<void> {
@@ -47,5 +48,19 @@ export class SalespersonUseCases {
     salesperson.phone = salespersonDto.phone;
     salesperson.address = salespersonDto.address;
     return salesperson;
+  }
+
+  private createDtoToEntity(salesperson: CreateSalespersonDto): Salesperson {
+    return new Salesperson(
+      null,
+      null,
+      null,
+      null,
+      salesperson.name,
+      salesperson.email,
+      salesperson.password,
+      salesperson.phone,
+      salesperson.address,
+    );
   }
 }
