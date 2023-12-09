@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateCarDto } from '../../application/dto/car/create-car.dto';
 import { UpdateCarDto } from '../../application/dto/car/update-car.dto';
-import { CarUseCases } from '../../domain/use-cases/car.use-cases';
+import { CarUseCases } from '../../application/use-cases/car.use-cases';
 import { CarRepository } from '../../domain/repositories/car.repository';
 
 @Injectable()

@@ -1,8 +1,8 @@
-import { Car } from '../entities/car.entity';
-import { CarRepository } from '../repositories/car.repository';
-import { CreateCarDto } from '../../application/dto/car/create-car.dto';
 import { UpdateCarDto } from '../../application/dto/car/update-car.dto';
 import { CarNotFoundError } from '../../application/errors/car.errors';
+import { Car } from '../../domain/entities/car.entity';
+import { CarRepository } from '../../domain/repositories/car.repository';
+import { CreateCarDto } from '../dto/car/create-car.dto';
 
 export class CarUseCases {
   constructor(private repository: CarRepository) {}
@@ -20,7 +20,8 @@ export class CarUseCases {
   }
 
   create(car: CreateCarDto): Promise<Car> {
-    return this.repository.create(car);
+    const entity = this.createDtoToEntity(car);
+    return this.repository.create(entity);
   }
 
   async delete(id: number): Promise<void> {
@@ -41,5 +42,9 @@ export class CarUseCases {
     car.year = carDto.year;
     car.price = carDto.price;
     return car;
+  }
+
+  private createDtoToEntity(car: CreateCarDto): Car {
+    return new Car(null, car.brand, car.color, car.model, car.year, car.price);
   }
 }

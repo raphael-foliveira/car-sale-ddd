@@ -1,9 +1,9 @@
-import { Sale } from '../entities/sale.entity';
-import { SaleRepository } from '../repositories/sale.repository';
-import { CreateSaleDto } from '../../application/dto/sale/create-sale.dto';
 import { SaleDetailedDto } from '../../application/dto/sale/sale-detailed.dto';
 import { UpdateSaleDto } from '../../application/dto/sale/update-sale.dto';
 import { SaleNotFoundError } from '../../application/errors/sale.errors';
+import { Sale } from '../../domain/entities/sale.entity';
+import { SaleRepository } from '../../domain/repositories/sale.repository';
+import { CreateSaleDto } from '../dto/sale/create-sale.dto';
 
 export class SaleUseCases {
   constructor(private repository: SaleRepository) {}
@@ -29,7 +29,8 @@ export class SaleUseCases {
   }
 
   create(sale: CreateSaleDto): Promise<Sale> {
-    return this.repository.create(sale);
+    const saleEntity = this.createDtoToEntity(sale);
+    return this.repository.create(saleEntity);
   }
 
   async delete(id: number): Promise<void> {
@@ -49,5 +50,18 @@ export class SaleUseCases {
     sale.salesPersonId = saleDto.salespersonId;
     sale.price = saleDto.price;
     return sale;
+  }
+
+  private createDtoToEntity(sale: CreateSaleDto): Sale {
+    return new Sale(
+      null,
+      null,
+      null,
+      sale.carId,
+      sale.clientId,
+      sale.salespersonId,
+      sale.price,
+      sale.discount,
+    );
   }
 }
