@@ -41,6 +41,9 @@ export class ClientOrmRepository implements ClientRepository {
   }
 
   private toDomainEntity(client: ClientEntity): Client {
+    if (!client) {
+      return;
+    }
     return new Client(
       client.id,
       client.name,

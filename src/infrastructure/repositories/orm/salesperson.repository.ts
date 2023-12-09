@@ -42,6 +42,9 @@ export class SalespersonOrmRepository implements SalespersonRepository {
   }
 
   private toDomainEntity(salesperson: SalespersonEntity): SalesPerson {
+    if (!salesperson) {
+      return;
+    }
     return new SalesPerson(
       salesperson.id,
       salesperson.name,

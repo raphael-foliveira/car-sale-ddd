@@ -39,6 +39,9 @@ export class CarOrmRepository implements CarRepository {
   }
 
   private toDomainEntity(car: CarEntity): Car {
+    if (!car) {
+      return;
+    }
     return new Car(
       car.id,
       car.brand,
