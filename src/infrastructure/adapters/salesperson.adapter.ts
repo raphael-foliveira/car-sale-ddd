@@ -9,7 +9,7 @@ export class SalespersonAdapter {
   private useCases: SalespersonUseCases;
 
   constructor(
-    @Inject('CarRepository') private repository: SalespersonRepository,
+    @Inject('SalespersonRepository') private repository: SalespersonRepository,
   ) {
     this.useCases = new SalespersonUseCases(repository);
   }

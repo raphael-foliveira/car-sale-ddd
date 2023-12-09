@@ -1,8 +1,7 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateSalespersonDto } from '../../../../application/dto/salesperson/create-salesperson.dto';
-import { UpdateSalespersonDto } from '../../../../application/dto/salesperson/update-salesperson.dto';
-import { SalesPerson } from '../../../../domain/entities/salesperson.entity';
+import { Salesperson } from '../../../../domain/entities/salesperson.entity';
 import { SalespersonRepository } from '../../../../domain/repositories/salesperson.repository';
 import { SalespersonEntity } from '../entities/salesperson.entity';
 
@@ -12,17 +11,17 @@ export class SalespersonOrmRepository implements SalespersonRepository {
     private repository: Repository<SalespersonEntity>,
   ) {}
 
-  async findAll(): Promise<SalesPerson[]> {
+  async findAll(): Promise<Salesperson[]> {
     const dbSalesPersons = await this.repository.find();
     return dbSalesPersons.map(this.toDomainEntity);
   }
 
-  async findById(id: number): Promise<SalesPerson> {
+  async findById(id: number): Promise<Salesperson> {
     const dbSalesPerson = await this.repository.findOne({ where: { id } });
     return this.toDomainEntity(dbSalesPerson);
   }
 
-  async create(salesperson: CreateSalespersonDto): Promise<SalesPerson> {
+  async create(salesperson: CreateSalespersonDto): Promise<Salesperson> {
     const dbSalesPerson = await this.repository.save(salesperson);
     return this.toDomainEntity(dbSalesPerson);
   }
@@ -32,20 +31,19 @@ export class SalespersonOrmRepository implements SalespersonRepository {
     await this.repository.remove(dbSalesPerson);
   }
 
-  async update(
-    id: number,
-    salesperson: UpdateSalespersonDto,
-  ): Promise<SalesPerson> {
-    await this.repository.update({ id }, salesperson);
-    const updatedSalesPerson = await this.repository.findOne({ where: { id } });
+  async update(salesperson: Salesperson): Promise<Salesperson> {
+    await this.repository.update({ id: salesperson.id }, salesperson);
+    const updatedSalesPerson = await this.repository.findOne({
+      where: { id: salesperson.id },
+    });
     return this.toDomainEntity(updatedSalesPerson);
   }
 
-  private toDomainEntity(salesperson: SalespersonEntity): SalesPerson {
+  private toDomainEntity(salesperson: SalespersonEntity): Salesperson {
     if (!salesperson) {
       return;
     }
-    return new SalesPerson(
+    return new Salesperson(
       salesperson.id,
       salesperson.name,
       salesperson.email,

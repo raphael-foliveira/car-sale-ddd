@@ -1,3 +1,7 @@
-import { CreateClientDto } from './create-client.dto';
-
-export interface UpdateClientDto extends Partial<CreateClientDto> {}
+export interface UpdateClientDto {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  address: string;
+}

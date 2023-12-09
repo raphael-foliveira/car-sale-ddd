@@ -2,10 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCarDto } from '../../../../application/dto/car/create-car.dto';
-import { UpdateCarDto } from '../../../../application/dto/car/update-car.dto';
-import { Car } from '../../../../domain/entities/car.entity';
 import { CarRepository } from '../../../../domain/repositories/car.repository';
 import { CarEntity } from '../entities/car.entity';
+import { Car } from '../../../../domain/entities/car.entity';
 
 @Injectable()
 export class CarOrmRepository implements CarRepository {
@@ -32,9 +31,18 @@ export class CarOrmRepository implements CarRepository {
     await this.repository.remove(dbCar);
   }
 
-  async update(id: number, car: UpdateCarDto): Promise<Car> {
-    await this.repository.update({ id }, car);
-    const updatedCar = await this.repository.findOne({ where: { id } });
+  async update(car: Car): Promise<Car> {
+    await this.repository.update(
+      { id: car.id },
+      {
+        brand: car.brand,
+        color: car.color,
+        model: car.model,
+        year: car.year,
+        price: car.price,
+      },
+    );
+    const updatedCar = await this.repository.findOne({ where: { id: car.id } });
     return this.toDomainEntity(updatedCar);
   }
 

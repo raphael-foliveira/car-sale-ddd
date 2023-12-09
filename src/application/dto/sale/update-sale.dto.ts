@@ -1,3 +1,3 @@
 import { CreateSaleDto } from './create-sale.dto';
 
-export interface UpdateSaleDto extends Partial<CreateSaleDto> {}
+export interface UpdateSaleDto extends CreateSaleDto {}
