@@ -44,6 +44,9 @@ export class SaleOrmRepository implements SaleRepository {
   }
 
   private toDomainEntity(sale: SaleEntity): Sale {
+    if (!sale) {
+      return;
+    }
     return new Sale(
       sale.id,
       sale.car?.id,

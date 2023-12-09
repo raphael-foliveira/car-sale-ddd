@@ -4,6 +4,7 @@ import { CreateClientDto } from '../dto/client/create-client.dto';
 import { UpdateClientDto } from '../dto/client/update-client.dto';
 import { Client } from '../../domain/entities/client.entity';
 import { ClientDto } from '../dto/client/client.dto';
+import { ClientNotFoundError } from '../errors/client.errors';
 
 @Injectable()
 export class ClientUseCases {
@@ -17,6 +18,9 @@ export class ClientUseCases {
 
   async findById(id: number): Promise<ClientDto> {
     const client = await this.repository.findById(id);
+    if (!client) {
+      throw new ClientNotFoundError();
+    }
     return this.removePassword(client);
   }
 
@@ -25,11 +29,13 @@ export class ClientUseCases {
     return this.removePassword(newClient);
   }
 
-  delete(id: number): Promise<void> {
+  async delete(id: number): Promise<void> {
+    await this.findById(id);
     return this.repository.delete(id);
   }
 
   async update(id: number, client: UpdateClientDto): Promise<ClientDto> {
+    await this.findById(id);
     const updatedClient = await this.repository.update(id, client);
     return this.removePassword(updatedClient);
   }
