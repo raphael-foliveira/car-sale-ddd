@@ -4,17 +4,18 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpStatus,
   Param,
   Post,
   Put,
 } from '@nestjs/common';
 import { CreateSalespersonDto } from '../../../application/dto/salesperson/create-salesperson.dto';
 import { UpdateSalespersonDto } from '../../../application/dto/salesperson/update-salesperson.dto';
-import { SalespersonUseCaseAdapter } from '../../adapters/salesperson.adapter';
+import { SalespersonAdapter } from '../../adapters/salesperson.adapter';
 
 @Controller('salespeople')
 export class SalespersonController {
-  constructor(private service: SalespersonUseCaseAdapter) {}
+  constructor(private service: SalespersonAdapter) {}
 
   @Get()
   findAll() {
@@ -36,7 +37,7 @@ export class SalespersonController {
     return this.service.update(id, salesperson);
   }
 
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   delete(@Param() id: number) {
     return this.service.delete(id);

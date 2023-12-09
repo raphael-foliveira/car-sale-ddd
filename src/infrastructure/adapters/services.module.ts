@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { OrmRepositoriesModule } from '../repositories/orm/orm-repositories.module';
-import { SalespersonAdapter } from './salesperson.adapter';
 import { CarAdapter } from './car.adapter';
-import { SaleAdapter } from './sale.adapter';
 import { ClientAdapter } from './client.adapter';
+import { SaleAdapter } from './sale.adapter';
+import { SalespersonAdapter } from './salesperson.adapter';
+import { OrmRepositoriesModule } from '../database/orm/repositories/orm-repositories.module';
 
 @Module({
   imports: [OrmRepositoriesModule],

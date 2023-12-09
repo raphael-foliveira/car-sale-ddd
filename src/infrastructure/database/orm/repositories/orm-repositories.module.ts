@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CarEntity } from '../../database/entities/car.entity';
-import { ClientEntity } from '../../database/entities/client.entity';
-import { SaleEntity } from '../../database/entities/sale.entity';
-import { SalespersonEntity } from '../../database/entities/salesperson.entity';
+import { CarEntity } from '../entities/car.entity';
+import { ClientEntity } from '../entities/client.entity';
+import { SaleEntity } from '../entities/sale.entity';
+import { SalespersonEntity } from '../entities/salesperson.entity';
 import { CarOrmRepository } from './car.repository';
-import { SalespersonOrmRepository } from './salesperson.repository';
-import { SaleOrmRepository } from './sale.repository';
 import { ClientOrmRepository } from './client.repository';
+import { SaleOrmRepository } from './sale.repository';
+import { SalespersonOrmRepository } from './salesperson.repository';
 
 @Module({
   imports: [
