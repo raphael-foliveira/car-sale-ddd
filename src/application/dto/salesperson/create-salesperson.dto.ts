@@ -1,8 +1,5 @@
-export interface CreateSalespersonDto {
-  name: string;
-  email: string;
-  password: string;
-  phone: string;
+import { UpdateSalespersonDto } from './update-salesperson.dto';
+
+export interface CreateSalespersonDto extends UpdateSalespersonDto {
   nationalId: string;
-  address: string;
 }

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateClientDto } from '../../../../application/dto/client/create-client.dto';
-import { UpdateClientDto } from '../../../../application/dto/client/update-client.dto';
 import { Client } from '../../../../domain/entities/client.entity';
 import { ClientRepository } from '../../../../domain/repositories/client.repository';
 import { ClientEntity } from '../entities/client.entity';
@@ -34,9 +33,11 @@ export class ClientOrmRepository implements ClientRepository {
     await this.repository.remove(dbClient);
   }
 
-  async update(id: number, client: UpdateClientDto): Promise<Client> {
-    await this.repository.update({ id }, client);
-    const updatedClient = await this.repository.findOne({ where: { id } });
+  async update(client: Client): Promise<Client> {
+    await this.repository.update({ id: client.id }, client);
+    const updatedClient = await this.repository.findOne({
+      where: { id: client.id },
+    });
     return this.toDomainEntity(updatedClient);
   }
 

@@ -2,7 +2,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateSaleDto } from '../../../../application/dto/sale/create-sale.dto';
 import { SaleDetailedDto } from '../../../../application/dto/sale/sale-detailed.dto';
-import { UpdateSaleDto } from '../../../../application/dto/sale/update-sale.dto';
 import { Car } from '../../../../domain/entities/car.entity';
 import { Sale } from '../../../../domain/entities/sale.entity';
 import { SaleRepository } from '../../../../domain/repositories/sale.repository';
@@ -17,13 +16,21 @@ export class SaleOrmRepository implements SaleRepository {
     const dbSales = await this.repository.find();
     return dbSales.map(this.toDomainEntity);
   }
-  async findById(id: number): Promise<SaleDetailedDto> {
+  async findById(id: number): Promise<Sale> {
+    const dbSale = await this.repository.findOne({
+      where: { id },
+    });
+    return this.toDomainEntity(dbSale);
+  }
+
+  async findDatailedById(id: number): Promise<SaleDetailedDto> {
     const dbSale = await this.repository.findOne({
       where: { id },
       relations: ['car', 'client', 'salesperson'],
     });
     return this.toSaleDetailed(dbSale);
   }
+
   async create(sale: CreateSaleDto): Promise<Sale> {
     const dbSale = await this.repository.save({
       ...sale,
@@ -37,9 +44,11 @@ export class SaleOrmRepository implements SaleRepository {
     const dbSale = await this.repository.findOne({ where: { id } });
     await this.repository.remove(dbSale);
   }
-  async update(id: number, sale: UpdateSaleDto): Promise<Sale> {
-    await this.repository.update({ id }, sale);
-    const updatedSale = await this.repository.findOne({ where: { id } });
+  async update(sale: Sale): Promise<Sale> {
+    await this.repository.update({ id: sale.id }, sale);
+    const updatedSale = await this.repository.findOne({
+      where: { id: sale.id },
+    });
     return this.toDomainEntity(updatedSale);
   }
 

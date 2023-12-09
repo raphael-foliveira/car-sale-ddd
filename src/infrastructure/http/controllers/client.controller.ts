@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { CreateClientDto } from '../../../application/dto/client/create-client.dto';
 import { ClientAdapter } from '../../adapters/client.adapter';
+import { UpdateClientDto } from '../../../application/dto/client/update-client.dto';
 
 @Controller('clients')
 export class ClientController {
@@ -32,7 +33,7 @@ export class ClientController {
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() client: CreateClientDto) {
+  update(@Param('id') id: number, @Body() client: UpdateClientDto) {
     return this.service.update(id, client);
   }
 

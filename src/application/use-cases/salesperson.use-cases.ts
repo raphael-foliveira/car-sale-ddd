@@ -1,4 +1,4 @@
-import { SalesPerson } from '../../domain/entities/salesperson.entity';
+import { Salesperson } from '../../domain/entities/salesperson.entity';
 import { SalespersonRepository } from '../../domain/repositories/salesperson.repository';
 import { CreateSalespersonDto } from '../dto/salesperson/create-salesperson.dto';
 import { UpdateSalespersonDto } from '../dto/salesperson/update-salesperson.dto';
@@ -7,7 +7,7 @@ import { SalespersonNotFoundError } from '../errors/salesperson.errors';
 export class SalespersonUseCases {
   constructor(private repository: SalespersonRepository) {}
 
-  async findAll(): Promise<SalesPerson[]> {
+  async findAll(): Promise<Salesperson[]> {
     const salesperson = await this.repository.findAll();
     if (!salesperson) {
       throw new SalespersonNotFoundError();
@@ -15,12 +15,12 @@ export class SalespersonUseCases {
     return salesperson;
   }
 
-  findById(id: number): Promise<SalesPerson> {
+  findById(id: number): Promise<Salesperson> {
     return this.repository.findById(id);
   }
 
-  create(car: CreateSalespersonDto): Promise<SalesPerson> {
-    return this.repository.create(car);
+  create(salesperson: CreateSalespersonDto): Promise<Salesperson> {
+    return this.repository.create(salesperson);
   }
 
   async delete(id: number): Promise<void> {
@@ -28,8 +28,16 @@ export class SalespersonUseCases {
     return this.repository.delete(id);
   }
 
-  async update(id: number, car: UpdateSalespersonDto): Promise<SalesPerson> {
-    await this.findById(id);
-    return this.repository.update(id, car);
+  async update(
+    id: number,
+    salespersonDto: UpdateSalespersonDto,
+  ): Promise<Salesperson> {
+    const salesperson = await this.repository.findById(id);
+    salesperson.name = salespersonDto.name;
+    salesperson.email = salespersonDto.email;
+    salesperson.password = salespersonDto.password;
+    salesperson.phone = salespersonDto.phone;
+    salesperson.address = salespersonDto.address;
+    return this.repository.update(salesperson);
   }
 }

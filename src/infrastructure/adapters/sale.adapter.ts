@@ -8,7 +8,7 @@ import { SaleRepository } from '../../domain/repositories/sale.repository';
 export class SaleAdapter {
   private useCases: SaleUseCases;
 
-  constructor(@Inject('CarRepository') private repository: SaleRepository) {
+  constructor(@Inject('SaleRepository') private repository: SaleRepository) {
     this.useCases = new SaleUseCases(repository);
   }
 

@@ -1,8 +1,5 @@
-export interface CreateClientDto {
-  name: string;
-  email: string;
-  password: string;
-  phone: string;
+import { UpdateSaleDto } from '../sale/update-sale.dto';
+
+export interface CreateClientDto extends UpdateSaleDto {
   nationalId: string;
-  address: string;
 }

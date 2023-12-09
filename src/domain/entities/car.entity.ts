@@ -3,10 +3,10 @@ export class Car {
 
   constructor(
     public readonly id: number,
-    public readonly brand: string,
-    public readonly color: string,
-    public readonly model: string,
-    public readonly year: number,
+    public brand: string,
+    public color: string,
+    public model: string,
+    public year: number,
     price: number,
   ) {
     this._price = price;

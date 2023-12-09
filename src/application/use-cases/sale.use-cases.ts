@@ -12,8 +12,16 @@ export class SaleUseCases {
     return this.repository.findAll();
   }
 
-  async findById(id: number): Promise<SaleDetailedDto> {
+  async findById(id: number): Promise<Sale> {
     const sale = await this.repository.findById(id);
+    if (!sale) {
+      throw new SaleNotFoundError();
+    }
+    return sale;
+  }
+
+  async findDetailedById(id: number): Promise<SaleDetailedDto> {
+    const sale = await this.repository.findDatailedById(id);
     if (!sale) {
       throw new SaleNotFoundError();
     }
@@ -29,8 +37,12 @@ export class SaleUseCases {
     return this.repository.delete(id);
   }
 
-  async update(id: number, sale: UpdateSaleDto): Promise<Sale> {
-    await this.findById(id);
-    return this.repository.update(id, sale);
+  async update(id: number, saleDto: UpdateSaleDto): Promise<Sale> {
+    const sale = await this.repository.findById(id);
+    sale.carId = saleDto.carId;
+    sale.clientId = saleDto.clientId;
+    sale.salesPersonId = saleDto.salespersonId;
+    sale.price = saleDto.price;
+    return this.repository.update(sale);
   }
 }

@@ -28,8 +28,13 @@ export class CarUseCases {
     return this.repository.delete(id);
   }
 
-  async update(id: number, car: UpdateCarDto): Promise<Car> {
-    await this.findById(id);
-    return this.repository.update(id, car);
+  async update(id: number, carDto: UpdateCarDto): Promise<Car> {
+    const car = await this.repository.findById(id);
+    car.brand = carDto.brand;
+    car.model = carDto.model;
+    car.color = carDto.color;
+    car.year = carDto.year;
+    car.price = carDto.price;
+    return this.repository.update(car);
   }
 }

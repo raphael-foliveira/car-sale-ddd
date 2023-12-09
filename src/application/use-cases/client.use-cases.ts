@@ -7,6 +7,7 @@ import { ClientNotFoundError } from '../errors/client.errors';
 
 export class ClientUseCases {
   constructor(private repository: ClientRepository) {}
+
   async findAll(): Promise<ClientDto[]> {
     const clients = await this.repository.findAll();
     return clients.map(this.removePassword);
@@ -30,9 +31,14 @@ export class ClientUseCases {
     return this.repository.delete(id);
   }
 
-  async update(id: number, client: UpdateClientDto): Promise<ClientDto> {
-    await this.findById(id);
-    const updatedClient = await this.repository.update(id, client);
+  async update(id: number, clientDto: UpdateClientDto): Promise<ClientDto> {
+    const client = await this.repository.findById(id);
+    client.name = clientDto.name;
+    client.email = clientDto.email;
+    client.phone = clientDto.phone;
+    client.address = clientDto.address;
+    client.password = clientDto.password;
+    const updatedClient = await this.repository.update(client);
     return this.removePassword(updatedClient);
   }
 
