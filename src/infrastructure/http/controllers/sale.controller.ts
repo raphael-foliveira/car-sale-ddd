@@ -24,7 +24,7 @@ export class SaleController {
 
   @Get(':id')
   findById(@Param('id') id: number) {
-    return this.service.findById(id);
+    return this.service.findDetailedById(id);
   }
 
   @Post()

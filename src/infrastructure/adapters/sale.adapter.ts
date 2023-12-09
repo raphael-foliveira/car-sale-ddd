@@ -16,8 +16,12 @@ export class SaleAdapter {
     return this.useCases.findAll();
   }
 
-  async findById(id: number) {
+  findById(id: number) {
     return this.useCases.findById(id);
+  }
+
+  findDetailedById(id: number) {
+    return this.useCases.findDetailedById(id);
   }
 
   create(sale: CreateSaleDto) {
