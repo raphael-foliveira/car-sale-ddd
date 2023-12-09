@@ -5,7 +5,7 @@ import { SaleUseCases } from '../../application/use-cases/sale.use-cases';
 import { SaleRepository } from '../../domain/repositories/sale.repository';
 
 @Injectable()
-export class SaleService {
+export class SaleAdapter {
   private useCases: SaleUseCases;
 
   constructor(@Inject('CarRepository') private repository: SaleRepository) {
