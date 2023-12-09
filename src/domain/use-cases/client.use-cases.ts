@@ -1,9 +1,9 @@
-import { Client } from '../../domain/entities/client.entity';
-import { ClientRepository } from '../../domain/repositories/client.repository';
-import { ClientDto } from '../dto/client/client.dto';
-import { CreateClientDto } from '../dto/client/create-client.dto';
-import { UpdateClientDto } from '../dto/client/update-client.dto';
-import { ClientNotFoundError } from '../errors/client.errors';
+import { Client } from '../entities/client.entity';
+import { ClientRepository } from '../repositories/client.repository';
+import { ClientDto } from '../../application/dto/client/client.dto';
+import { CreateClientDto } from '../../application/dto/client/create-client.dto';
+import { UpdateClientDto } from '../../application/dto/client/update-client.dto';
+import { ClientNotFoundError } from '../../application/errors/client.errors';
 
 export class ClientUseCases {
   constructor(private repository: ClientRepository) {}
