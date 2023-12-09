@@ -33,11 +33,19 @@ export class SalespersonUseCases {
     salespersonDto: UpdateSalespersonDto,
   ): Promise<Salesperson> {
     const salesperson = await this.repository.findById(id);
+    const updatedEntity = await this.updateEntity(salesperson, salespersonDto);
+    return this.repository.update(updatedEntity);
+  }
+
+  private updateEntity(
+    salesperson: Salesperson,
+    salespersonDto: UpdateSalespersonDto,
+  ): Salesperson {
     salesperson.name = salespersonDto.name;
     salesperson.email = salespersonDto.email;
     salesperson.password = salespersonDto.password;
     salesperson.phone = salespersonDto.phone;
     salesperson.address = salespersonDto.address;
-    return this.repository.update(salesperson);
+    return salesperson;
   }
 }
