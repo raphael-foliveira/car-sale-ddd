@@ -8,9 +8,9 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateCarDto } from '../../application/dto/car/create-car.dto';
-import { UpdateCarDto } from '../../application/dto/car/update-car.dto';
-import { CarUseCases } from '../../application/use-cases/car.use-cases';
+import { CreateCarDto } from '../../../application/dto/car/create-car.dto';
+import { UpdateCarDto } from '../../../application/dto/car/update-car.dto';
+import { CarUseCases } from '../../../application/use-cases/car.use-cases';
 
 @Controller('cars')
 export class CarController {

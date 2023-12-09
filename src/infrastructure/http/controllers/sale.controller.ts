@@ -8,9 +8,9 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { SaleUseCases } from '../../application/use-cases/sale.use-cases';
-import { CreateSaleDto } from '../../application/dto/sale/create-sale.dto';
-import { UpdateSaleDto } from '../../application/dto/sale/update-sale.dto';
+import { CreateSaleDto } from '../../../application/dto/sale/create-sale.dto';
+import { UpdateSaleDto } from '../../../application/dto/sale/update-sale.dto';
+import { SaleUseCases } from '../../../application/use-cases/sale.use-cases';
 
 @Controller('sales')
 export class SaleController {

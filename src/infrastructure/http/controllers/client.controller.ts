@@ -8,8 +8,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ClientUseCases } from '../../application/use-cases/client.use-cases';
-import { CreateClientDto } from '../../application/dto/client/create-client.dto';
+import { ClientUseCases } from '../../../application/use-cases/client.use-cases';
+import { CreateClientDto } from '../../../application/dto/client/create-client.dto';
 
 @Controller('clients')
 export class ClientController {
