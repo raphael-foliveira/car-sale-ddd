@@ -45,6 +45,15 @@ export class CarUseCases {
   }
 
   private createDtoToEntity(car: CreateCarDto): Car {
-    return new Car(null, car.brand, car.color, car.model, car.year, car.price);
+    return new Car(
+      null,
+      null,
+      null,
+      car.brand,
+      car.color,
+      car.model,
+      car.year,
+      car.price,
+    );
   }
 }

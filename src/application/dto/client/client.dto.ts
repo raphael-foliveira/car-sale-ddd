@@ -1,10 +1,8 @@
-export interface ClientDto {
+import { CreateClientDto } from './create-client.dto';
+
+export interface ClientDto
+  extends Pick<CreateClientDto, Exclude<keyof CreateClientDto, 'password'>> {
   id: number;
-  name: string;
-  email: string;
-  phone: string;
-  nationalId: string;
-  address: string;
   createdAt: Date;
   updatedAt: Date;
 }

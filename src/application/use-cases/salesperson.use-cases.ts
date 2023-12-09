@@ -42,7 +42,6 @@ export class SalespersonUseCases {
     salesperson: Salesperson,
     salespersonDto: UpdateSalespersonDto,
   ): Salesperson {
-    salesperson.name = salespersonDto.name;
     salesperson.email = salespersonDto.email;
     salesperson.password = salespersonDto.password;
     salesperson.phone = salespersonDto.phone;

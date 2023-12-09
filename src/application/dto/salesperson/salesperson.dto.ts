@@ -1,10 +1,9 @@
-export interface SalespersonDto {
+import { CreateSalespersonDto } from './create-salesperson.dto';
+
+export interface SalespersonDto
+  extends Pick<
+    CreateSalespersonDto,
+    Exclude<keyof CreateSalespersonDto, 'password'>
+  > {
   id: number;
-  name: string;
-  email: string;
-  phone: string;
-  nationalId: string;
-  address: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
