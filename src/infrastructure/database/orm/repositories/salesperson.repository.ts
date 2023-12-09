@@ -1,10 +1,10 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateSalespersonDto } from '../../../application/dto/salesperson/create-salesperson.dto';
-import { UpdateSalespersonDto } from '../../../application/dto/salesperson/update-salesperson.dto';
-import { SalesPerson } from '../../../domain/entities/salesperson.entity';
-import { SalespersonRepository } from '../../../domain/repositories/salesperson.repository';
 import { Repository } from 'typeorm';
-import { SalespersonEntity } from '../../database/entities/salesperson.entity';
+import { CreateSalespersonDto } from '../../../../application/dto/salesperson/create-salesperson.dto';
+import { UpdateSalespersonDto } from '../../../../application/dto/salesperson/update-salesperson.dto';
+import { SalesPerson } from '../../../../domain/entities/salesperson.entity';
+import { SalespersonRepository } from '../../../../domain/repositories/salesperson.repository';
+import { SalespersonEntity } from '../entities/salesperson.entity';
 
 export class SalespersonOrmRepository implements SalespersonRepository {
   constructor(

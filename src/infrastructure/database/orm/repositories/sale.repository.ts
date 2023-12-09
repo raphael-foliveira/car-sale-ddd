@@ -1,12 +1,12 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateSaleDto } from '../../../application/dto/sale/create-sale.dto';
-import { SaleDetailedDto } from '../../../application/dto/sale/sale-detailed.dto';
-import { UpdateSaleDto } from '../../../application/dto/sale/update-sale.dto';
-import { Car } from '../../../domain/entities/car.entity';
-import { Sale } from '../../../domain/entities/sale.entity';
-import { SaleRepository } from '../../../domain/repositories/sale.repository';
-import { SaleEntity } from '../../database/entities/sale.entity';
+import { CreateSaleDto } from '../../../../application/dto/sale/create-sale.dto';
+import { SaleDetailedDto } from '../../../../application/dto/sale/sale-detailed.dto';
+import { UpdateSaleDto } from '../../../../application/dto/sale/update-sale.dto';
+import { Car } from '../../../../domain/entities/car.entity';
+import { Sale } from '../../../../domain/entities/sale.entity';
+import { SaleRepository } from '../../../../domain/repositories/sale.repository';
+import { SaleEntity } from '../entities/sale.entity';
 
 export class SaleOrmRepository implements SaleRepository {
   constructor(

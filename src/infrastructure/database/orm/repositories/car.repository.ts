@@ -1,11 +1,11 @@
-import { InjectRepository } from '@nestjs/typeorm';
-import { CreateCarDto } from '../../../application/dto/car/create-car.dto';
-import { UpdateCarDto } from '../../../application/dto/car/update-car.dto';
-import { Car } from '../../../domain/entities/car.entity';
-import { CarRepository } from '../../../domain/repositories/car.repository';
-import { CarEntity } from '../../database/entities/car.entity';
-import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateCarDto } from '../../../../application/dto/car/create-car.dto';
+import { UpdateCarDto } from '../../../../application/dto/car/update-car.dto';
+import { Car } from '../../../../domain/entities/car.entity';
+import { CarRepository } from '../../../../domain/repositories/car.repository';
+import { CarEntity } from '../entities/car.entity';
 
 @Injectable()
 export class CarOrmRepository implements CarRepository {
