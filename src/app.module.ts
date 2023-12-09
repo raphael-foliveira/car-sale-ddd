@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { OrmRepositoriesModule } from './infrastructure/repositories/orm/orm-repositories.module';
-import { UseCasesModule } from './application/use-cases/use-cases.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ControllersModule } from './infrastructure/http/controllers/controllers.module';
 
@@ -15,12 +13,7 @@ import { ControllersModule } from './infrastructure/http/controllers/controllers
       password: 'postgres',
       host: 'db',
     }),
-    OrmRepositoriesModule,
-    UseCasesModule,
     ControllersModule,
   ],
-
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
