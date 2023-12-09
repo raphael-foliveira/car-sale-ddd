@@ -58,13 +58,13 @@ export class SaleOrmRepository implements SaleRepository {
     }
     return new Sale(
       sale.id,
+      sale.createdAt,
+      sale.updatedAt,
       sale.car?.id,
       sale.client?.id,
       sale.salesperson?.id,
       sale.price,
       sale.discount,
-      sale.createdAt,
-      sale.updatedAt,
     );
   }
 

@@ -47,14 +47,14 @@ export class ClientOrmRepository implements ClientRepository {
     }
     return new Client(
       client.id,
+      client.nationalId,
+      client.createdAt,
+      client.updatedAt,
       client.name,
       client.email,
       client.password,
       client.phone,
-      client.nationalId,
       client.address,
-      client.createdAt,
-      client.updatedAt,
     );
   }
 }
