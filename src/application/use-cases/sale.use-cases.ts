@@ -59,23 +59,20 @@ export class SaleUseCases {
   }
 
   private updateEntity(sale: Sale, saleDto: UpdateSaleDto): Sale {
-    sale.carId = saleDto.carId;
-    sale.clientId = saleDto.clientId;
-    sale.salesPersonId = saleDto.salespersonId;
-    sale.finalPrice = saleDto.price;
-    return sale;
+    return sale
+      .setCarId(saleDto.carId)
+      .setClientId(saleDto.clientId)
+      .setSalesPersonId(saleDto.salespersonId)
+      .setFinalPrice(saleDto.finalPrice)
+      .setDiscount(saleDto.discount);
   }
 
   private createDtoToEntity(sale: CreateSaleDto): Sale {
-    return new Sale(
-      null,
-      null,
-      null,
-      sale.carId,
-      sale.clientId,
-      sale.salespersonId,
-      sale.price,
-      sale.discount,
-    );
+    return new Sale()
+      .setCarId(sale.carId)
+      .setClientId(sale.clientId)
+      .setSalesPersonId(sale.salespersonId)
+      .setFinalPrice(sale.finalPrice)
+      .setDiscount(sale.discount);
   }
 }

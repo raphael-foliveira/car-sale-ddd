@@ -51,14 +51,14 @@ export class SalespersonOrmRepository implements SalespersonRepository {
     }
     return new Salesperson(
       salesperson.id,
-      salesperson.nationalId,
       salesperson.createdAt,
       salesperson.updatedAt,
-      salesperson.name,
-      salesperson.email,
-      salesperson.password,
-      salesperson.phone,
-      salesperson.address,
-    );
+    )
+      .setName(salesperson.name)
+      .setNationalId(salesperson.nationalId)
+      .setEmail(salesperson.email)
+      .setPassword(salesperson.password)
+      .setPhone(salesperson.phone)
+      .setAddress(salesperson.address);
   }
 }

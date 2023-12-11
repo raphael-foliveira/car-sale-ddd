@@ -1,13 +1,14 @@
 export class Sale {
+  private _carId: number;
+  private _clientId: number;
+  private _salesPersonId: number;
+  private _finalPrice: number;
+  private _discount: number;
+
   constructor(
-    private _id: number,
-    private _createdAt: Date,
-    private _updatedAt: Date,
-    private _carId: number,
-    private _clientId: number,
-    private _salesPersonId: number,
-    private _finalPrice: number,
-    private _discount: number,
+    private _id: number = null,
+    private _createdAt: Date = null,
+    private _updatedAt: Date = null,
   ) {}
 
   get id() {
@@ -26,39 +27,44 @@ export class Sale {
     return this._carId;
   }
 
-  set carId(carId: number) {
+  setCarId(carId: number) {
     this._carId = carId;
+    return this;
   }
 
   get clientId() {
     return this._clientId;
   }
 
-  set clientId(clientId: number) {
+  setClientId(clientId: number) {
     this._clientId = clientId;
+    return this;
   }
 
   get salesPersonId() {
     return this._salesPersonId;
   }
 
-  set salesPersonId(salesPersonId: number) {
+  setSalesPersonId(salesPersonId: number) {
     this._salesPersonId = salesPersonId;
+    return this;
   }
 
   get finalPrice() {
     return this._finalPrice;
   }
 
-  set finalPrice(price: number) {
+  setFinalPrice(price: number) {
     this._finalPrice = price;
+    return this;
   }
 
   get discount() {
     return this._discount;
   }
 
-  set discount(discount: number) {
+  setDiscount(discount: number) {
     this._discount = discount;
+    return this;
   }
 }

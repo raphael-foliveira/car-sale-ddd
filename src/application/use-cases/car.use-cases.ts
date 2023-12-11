@@ -36,24 +36,20 @@ export class CarUseCases {
   }
 
   private updateEntity(car: Car, carDto: UpdateCarDto): Car {
-    car.brand = carDto.brand;
-    car.model = carDto.model;
-    car.color = carDto.color;
-    car.year = carDto.year;
-    car.price = carDto.price;
-    return car;
+    return car
+      .setBrand(carDto.brand)
+      .setModel(carDto.model)
+      .setColor(carDto.color)
+      .setYear(carDto.year)
+      .setPrice(carDto.price);
   }
 
   private createDtoToEntity(car: CreateCarDto): Car {
-    return new Car(
-      null,
-      null,
-      null,
-      car.brand,
-      car.color,
-      car.model,
-      car.year,
-      car.price,
-    );
+    return new Car()
+      .setBrand(car.brand)
+      .setModel(car.model)
+      .setColor(car.color)
+      .setYear(car.year)
+      .setPrice(car.price);
   }
 }

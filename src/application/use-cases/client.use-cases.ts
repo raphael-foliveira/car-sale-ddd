@@ -40,11 +40,11 @@ export class ClientUseCases {
   }
 
   private updateEntity(client: Client, clientDto: UpdateClientDto): Client {
-    client.email = clientDto.email;
-    client.phone = clientDto.phone;
-    client.address = clientDto.address;
-    client.password = clientDto.password;
-    return client;
+    return client
+      .setEmail(clientDto.email)
+      .setPhone(clientDto.phone)
+      .setAddress(clientDto.address)
+      .setPassword(clientDto.password);
   }
 
   private removePassword(client: Client): ClientDto {
@@ -61,16 +61,12 @@ export class ClientUseCases {
   }
 
   private createDtoToEntity(client: CreateClientDto): Client {
-    return new Client(
-      null,
-      client.nationalId,
-      null,
-      null,
-      client.name,
-      client.email,
-      client.password,
-      client.phone,
-      client.address,
-    );
+    return new Client()
+      .setNationalId(client.nationalId)
+      .setName(client.name)
+      .setEmail(client.email)
+      .setPassword(client.password)
+      .setPhone(client.phone)
+      .setAddress(client.address);
   }
 }

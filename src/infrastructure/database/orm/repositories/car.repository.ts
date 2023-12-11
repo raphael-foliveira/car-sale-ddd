@@ -44,15 +44,11 @@ export class CarOrmRepository implements CarRepository {
     if (!car) {
       return;
     }
-    return new Car(
-      car.id,
-      car.createdAt,
-      car.updatedAt,
-      car.brand,
-      car.color,
-      car.model,
-      car.year,
-      car.price,
-    );
+    return new Car(car.id, car.createdAt, car.updatedAt)
+      .setBrand(car.brand)
+      .setModel(car.model)
+      .setColor(car.color)
+      .setYear(car.year)
+      .setPrice(car.price);
   }
 }

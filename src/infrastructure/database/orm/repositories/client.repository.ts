@@ -49,16 +49,12 @@ export class ClientOrmRepository implements ClientRepository {
     if (!client) {
       return;
     }
-    return new Client(
-      client.id,
-      client.nationalId,
-      client.createdAt,
-      client.updatedAt,
-      client.name,
-      client.email,
-      client.password,
-      client.phone,
-      client.address,
-    );
+    return new Client(client.id, client.createdAt, client.updatedAt)
+      .setNationalId(client.nationalId)
+      .setName(client.name)
+      .setEmail(client.email)
+      .setPassword(client.password)
+      .setPhone(client.phone)
+      .setAddress(client.address);
   }
 }

@@ -42,24 +42,20 @@ export class SalespersonUseCases {
     salesperson: Salesperson,
     salespersonDto: UpdateSalespersonDto,
   ): Salesperson {
-    salesperson.email = salespersonDto.email;
-    salesperson.password = salespersonDto.password;
-    salesperson.phone = salespersonDto.phone;
-    salesperson.address = salespersonDto.address;
-    return salesperson;
+    return salesperson
+      .setEmail(salespersonDto.email)
+      .setPassword(salespersonDto.password)
+      .setPhone(salespersonDto.phone)
+      .setAddress(salespersonDto.address);
   }
 
   private createDtoToEntity(salesperson: CreateSalespersonDto): Salesperson {
-    return new Salesperson(
-      null,
-      null,
-      null,
-      null,
-      salesperson.name,
-      salesperson.email,
-      salesperson.password,
-      salesperson.phone,
-      salesperson.address,
-    );
+    return new Salesperson()
+      .setName(salesperson.name)
+      .setNationalId(salesperson.nationalId)
+      .setEmail(salesperson.email)
+      .setPassword(salesperson.password)
+      .setPhone(salesperson.phone)
+      .setAddress(salesperson.address);
   }
 }

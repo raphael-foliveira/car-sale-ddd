@@ -1,6 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { SaleDetailedDto } from '../../../../application/dto/sale/sale-detailed.dto';
 import { Sale } from '../../../../domain/entities/sale.entity';
 import { SaleRepository } from '../../../../domain/repositories/sale.repository';
 import { SaleEntity } from '../entities/sale.entity';
@@ -20,14 +19,6 @@ export class SaleOrmRepository implements SaleRepository {
       where: { id },
     });
     return this.toDomainEntity(dbSale);
-  }
-
-  async findDatailedById(id: number): Promise<SaleDetailedDto> {
-    const dbSale = await this.repository.findOne({
-      where: { id },
-      relations: ['car', 'client', 'salesperson'],
-    });
-    return this.toSaleDetailed(dbSale);
   }
 
   async create(sale: Sale): Promise<Sale> {
@@ -56,51 +47,11 @@ export class SaleOrmRepository implements SaleRepository {
     if (!sale) {
       return;
     }
-    return new Sale(
-      sale.id,
-      sale.createdAt,
-      sale.updatedAt,
-      sale.car?.id,
-      sale.client?.id,
-      sale.salesperson?.id,
-      sale.price,
-      sale.discount,
-    );
-  }
-  private toSaleDetailed(sale: SaleEntity): SaleDetailedDto {
-    const { car, client, salesperson } = sale;
-    return {
-      id: sale.id,
-      car: {
-        id: car.id,
-        brand: car.brand,
-        color: car.color,
-        model: car.model,
-        year: car.year,
-        price: car.price,
-      },
-      client: {
-        id: client.id,
-        name: client.name,
-        email: client.email,
-        phone: client.phone,
-        nationalId: client.nationalId,
-        address: client.address,
-        createdAt: client.createdAt,
-        updatedAt: client.updatedAt,
-      },
-      salesperson: {
-        id: salesperson.id,
-        name: salesperson.name,
-        email: salesperson.email,
-        phone: salesperson.phone,
-        nationalId: salesperson.nationalId,
-        address: salesperson.address,
-      },
-      price: sale.price,
-      discount: sale.discount,
-      createdAt: sale.createdAt,
-      updatedAt: sale.updatedAt,
-    };
+    return new Sale(sale.id, sale.createdAt, sale.updatedAt)
+      .setCarId(sale.car.id)
+      .setClientId(sale.client.id)
+      .setSalesPersonId(sale.salesperson.id)
+      .setFinalPrice(sale.finalPrice)
+      .setDiscount(sale.discount);
   }
 }
