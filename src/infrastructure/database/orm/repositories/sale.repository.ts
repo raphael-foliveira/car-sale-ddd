@@ -10,13 +10,16 @@ export class SaleOrmRepository implements SaleRepository {
   ) {}
 
   async findAll(): Promise<Sale[]> {
-    const dbSales = await this.repository.find();
+    const dbSales = await this.repository.find({
+      relations: ['car', 'client', 'salesperson'],
+    });
     return dbSales.map(this.toDomainEntity);
   }
 
   async findById(id: number): Promise<Sale> {
     const dbSale = await this.repository.findOne({
       where: { id },
+      relations: ['car', 'client', 'salesperson'],
     });
     return this.toDomainEntity(dbSale);
   }

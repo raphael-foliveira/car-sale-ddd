@@ -23,7 +23,7 @@ export class SalespersonController {
   }
 
   @Get(':id')
-  findById(@Param() id: number) {
+  findById(@Param('id') id: number) {
     return this.service.findById(id);
   }
 
@@ -33,13 +33,13 @@ export class SalespersonController {
   }
 
   @Put(':id')
-  update(@Param() id: number, @Body() salesperson: UpdateSalespersonDto) {
+  update(@Param('id') id: number, @Body() salesperson: UpdateSalespersonDto) {
     return this.service.update(id, salesperson);
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  delete(@Param() id: number) {
+  delete(@Param('id') id: number) {
     return this.service.delete(id);
   }
 }

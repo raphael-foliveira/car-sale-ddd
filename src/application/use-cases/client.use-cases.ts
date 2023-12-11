@@ -10,7 +10,7 @@ export class ClientUseCases {
 
   async findAll(): Promise<ClientDto[]> {
     const clients = await this.repository.findAll();
-    return clients.map(this.removePassword);
+    return clients.map(this.toDto);
   }
 
   async findById(id: number): Promise<ClientDto> {
@@ -18,13 +18,13 @@ export class ClientUseCases {
     if (!client) {
       throw new ClientNotFoundError();
     }
-    return this.removePassword(client);
+    return this.toDto(client);
   }
 
   async create(client: CreateClientDto): Promise<ClientDto> {
     const entity = this.createDtoToEntity(client);
     const newClient = await this.repository.create(entity);
-    return this.removePassword(newClient);
+    return this.toDto(newClient);
   }
 
   async delete(id: number): Promise<void> {
@@ -36,7 +36,7 @@ export class ClientUseCases {
     const client = await this.repository.findById(id);
     const updatedEntity = this.updateEntity(client, clientDto);
     const updatedClient = await this.repository.update(updatedEntity);
-    return this.removePassword(updatedClient);
+    return this.toDto(updatedClient);
   }
 
   private updateEntity(client: Client, clientDto: UpdateClientDto): Client {
@@ -47,7 +47,17 @@ export class ClientUseCases {
       .setPassword(clientDto.password);
   }
 
-  private removePassword(client: Client): ClientDto {
+  private createDtoToEntity(client: CreateClientDto): Client {
+    return new Client()
+      .setNationalId(client.nationalId)
+      .setName(client.name)
+      .setEmail(client.email)
+      .setPassword(client.password)
+      .setPhone(client.phone)
+      .setAddress(client.address);
+  }
+
+  private toDto(client: Client): ClientDto {
     return {
       id: client.id,
       name: client.name,
@@ -58,15 +68,5 @@ export class ClientUseCases {
       createdAt: client.createdAt,
       updatedAt: client.updatedAt,
     };
-  }
-
-  private createDtoToEntity(client: CreateClientDto): Client {
-    return new Client()
-      .setNationalId(client.nationalId)
-      .setName(client.name)
-      .setEmail(client.email)
-      .setPassword(client.password)
-      .setPhone(client.phone)
-      .setAddress(client.address);
   }
 }
