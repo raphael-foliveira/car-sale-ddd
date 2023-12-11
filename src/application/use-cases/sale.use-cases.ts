@@ -60,7 +60,7 @@ export class SaleUseCases {
     return sale
       .setCarId(saleDto.carId)
       .setClientId(saleDto.clientId)
-      .setSalesPersonId(saleDto.salespersonId)
+      .setSalespersonId(saleDto.salespersonId)
       .setFinalPrice(saleDto.finalPrice)
       .setDiscount(saleDto.discount);
   }
@@ -69,7 +69,7 @@ export class SaleUseCases {
     return new Sale()
       .setCarId(sale.carId)
       .setClientId(sale.clientId)
-      .setSalesPersonId(sale.salespersonId)
+      .setSalespersonId(sale.salespersonId)
       .setFinalPrice(sale.finalPrice)
       .setDiscount(sale.discount);
   }

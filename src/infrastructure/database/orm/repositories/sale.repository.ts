@@ -53,7 +53,7 @@ export class SaleOrmRepository implements SaleRepository {
     return new Sale(sale.id, sale.createdAt, sale.updatedAt)
       .setCarId(sale.car.id)
       .setClientId(sale.client.id)
-      .setSalesPersonId(sale.salesperson.id)
+      .setSalespersonId(sale.salesperson.id)
       .setFinalPrice(sale.finalPrice)
       .setDiscount(sale.discount);
   }
