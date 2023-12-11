@@ -1,6 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateSalespersonDto } from '../../../../application/dto/salesperson/create-salesperson.dto';
 import { Salesperson } from '../../../../domain/entities/salesperson.entity';
 import { SalespersonRepository } from '../../../../domain/repositories/salesperson.repository';
 import { SalespersonEntity } from '../entities/salesperson.entity';
@@ -21,8 +20,15 @@ export class SalespersonOrmRepository implements SalespersonRepository {
     return this.toDomainEntity(dbSalesPerson);
   }
 
-  async create(salesperson: CreateSalespersonDto): Promise<Salesperson> {
-    const dbSalesPerson = await this.repository.save(salesperson);
+  async create(salesperson: Salesperson): Promise<Salesperson> {
+    const dbSalesPerson = await this.repository.save({
+      address: salesperson.address,
+      email: salesperson.email,
+      name: salesperson.name,
+      nationalId: salesperson.nationalId,
+      password: salesperson.password,
+      phone: salesperson.phone,
+    });
     return this.toDomainEntity(dbSalesPerson);
   }
 

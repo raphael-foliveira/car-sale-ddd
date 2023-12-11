@@ -1,6 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateClientDto } from '../../../../application/dto/client/create-client.dto';
 import { Client } from '../../../../domain/entities/client.entity';
 import { ClientRepository } from '../../../../domain/repositories/client.repository';
 import { ClientEntity } from '../entities/client.entity';
@@ -21,8 +20,15 @@ export class ClientOrmRepository implements ClientRepository {
     return this.toDomainEntity(dbClient);
   }
 
-  async create(client: CreateClientDto): Promise<Client> {
-    const dbClient = await this.repository.save(client);
+  async create(client: Client): Promise<Client> {
+    const dbClient = await this.repository.save({
+      address: client.address,
+      email: client.email,
+      name: client.name,
+      nationalId: client.nationalId,
+      password: client.password,
+      phone: client.phone,
+    });
     return this.toDomainEntity(dbClient);
   }
 
