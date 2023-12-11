@@ -19,7 +19,13 @@ export class CarOrmRepository implements CarRepository {
   }
 
   async create(car: Car): Promise<Car> {
-    const dbCar = await this.repository.save(car);
+    const dbCar = await this.repository.save({
+      brand: car.brand,
+      color: car.color,
+      model: car.model,
+      year: car.year,
+      price: car.price,
+    });
     return this.toDomainEntity(dbCar);
   }
 
@@ -29,7 +35,7 @@ export class CarOrmRepository implements CarRepository {
   }
 
   async update(car: Car): Promise<Car> {
-    await this.repository.save(car);
+    await this.repository.update({ id: car.id }, car);
     const updatedCar = await this.repository.findOne({ where: { id: car.id } });
     return this.toDomainEntity(updatedCar);
   }
