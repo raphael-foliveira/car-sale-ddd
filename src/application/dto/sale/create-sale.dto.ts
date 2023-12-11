@@ -2,6 +2,6 @@ export interface CreateSaleDto {
   carId: number;
   clientId: number;
   salespersonId: number;
-  price: number;
+  finalPrice: number;
   discount: number;
 }

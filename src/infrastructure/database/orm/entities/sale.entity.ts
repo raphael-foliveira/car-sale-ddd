@@ -29,7 +29,7 @@ export class SaleEntity {
   salesperson: SalespersonEntity;
 
   @Column()
-  price: number;
+  finalPrice: number;
 
   @Column()
   discount: number;
