@@ -32,7 +32,7 @@ export class SaleUseCases {
     }
     const [car, salesperson, client] = await Promise.all([
       this.carRepository.findById(sale.carId),
-      this.salespersonRepository.findById(sale.salesPersonId),
+      this.salespersonRepository.findById(sale.salespersonId),
       this.clientRepository.findById(sale.clientId),
     ]);
     return this.toDetailedDto(sale, car, salesperson, client);
@@ -82,7 +82,7 @@ export class SaleUseCases {
       updatedAt: sale.updatedAt,
       price: sale.finalPrice,
       carId: sale.carId,
-      salespersonId: sale.salesPersonId,
+      salespersonId: sale.salespersonId,
       clientId: sale.clientId,
     };
   }

@@ -29,7 +29,7 @@ export class SaleOrmRepository implements SaleRepository {
       ...sale,
       car: { id: sale.carId },
       client: { id: sale.clientId },
-      salesperson: { id: sale.salesPersonId },
+      salesperson: { id: sale.salespersonId },
     });
     return this.toDomainEntity(dbSale);
   }

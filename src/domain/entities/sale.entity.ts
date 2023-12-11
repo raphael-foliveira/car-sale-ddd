@@ -41,7 +41,7 @@ export class Sale {
     return this;
   }
 
-  get salesPersonId() {
+  get salespersonId() {
     return this._salesPersonId;
   }
 
