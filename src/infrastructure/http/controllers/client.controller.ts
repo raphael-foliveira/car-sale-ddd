@@ -9,31 +9,38 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateClientDto } from '../../../application/dto/client/create-client.dto';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ClientAdapter } from '../../adapters/client.adapter';
-import { UpdateClientDto } from '../../../application/dto/client/update-client.dto';
+import { ClientResponseDto } from '../dto/clients/client-response.dto';
+import { CreateClientRequestDto } from '../dto/clients/create-client.dto';
+import { UpdateClientRequestDto } from '../dto/clients/update-client.dto';
 
 @Controller('clients')
+@ApiTags('clients')
 export class ClientController {
   constructor(private service: ClientAdapter) {}
 
   @Get()
+  @ApiResponse({ type: [ClientResponseDto] })
   findAll() {
     return this.service.findAll();
   }
 
   @Get(':id')
+  @ApiResponse({ type: ClientResponseDto })
   findById(@Param('id') id: number) {
     return this.service.findById(id);
   }
 
   @Post()
-  create(@Body() @Body() client: CreateClientDto) {
+  @ApiResponse({ type: ClientResponseDto })
+  create(@Body() @Body() client: CreateClientRequestDto) {
     return this.service.create(client);
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() client: UpdateClientDto) {
+  @ApiResponse({ type: ClientResponseDto })
+  update(@Param('id') id: number, @Body() client: UpdateClientRequestDto) {
     return this.service.update(id, client);
   }
 
