@@ -32,7 +32,7 @@ export class SaleUseCases {
     }
     const [car, salesperson, client] = await Promise.all([
       this.carRepository.findById(sale.carId),
-      this.salespersonRepository.findById(sale.salesPersonId),
+      this.salespersonRepository.findById(sale.salespersonId),
       this.clientRepository.findById(sale.clientId),
     ]);
     return this.toDetailedDto(sale, car, salesperson, client);
@@ -60,7 +60,7 @@ export class SaleUseCases {
     return sale
       .setCarId(saleDto.carId)
       .setClientId(saleDto.clientId)
-      .setSalesPersonId(saleDto.salespersonId)
+      .setSalespersonId(saleDto.salespersonId)
       .setFinalPrice(saleDto.finalPrice)
       .setDiscount(saleDto.discount);
   }
@@ -69,7 +69,7 @@ export class SaleUseCases {
     return new Sale()
       .setCarId(sale.carId)
       .setClientId(sale.clientId)
-      .setSalesPersonId(sale.salespersonId)
+      .setSalespersonId(sale.salespersonId)
       .setFinalPrice(sale.finalPrice)
       .setDiscount(sale.discount);
   }
@@ -82,7 +82,7 @@ export class SaleUseCases {
       updatedAt: sale.updatedAt,
       price: sale.finalPrice,
       carId: sale.carId,
-      salespersonId: sale.salesPersonId,
+      salespersonId: sale.salespersonId,
       clientId: sale.clientId,
     };
   }

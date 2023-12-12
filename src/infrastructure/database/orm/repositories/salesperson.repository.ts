@@ -11,17 +11,17 @@ export class SalespersonOrmRepository implements SalespersonRepository {
   ) {}
 
   async findAll(): Promise<Salesperson[]> {
-    const dbSalesPersons = await this.repository.find();
-    return dbSalesPersons.map(this.toDomainEntity);
+    const dbSalespeople = await this.repository.find();
+    return dbSalespeople.map(this.toDomainEntity);
   }
 
   async findById(id: number): Promise<Salesperson> {
-    const dbSalesPerson = await this.repository.findOne({ where: { id } });
-    return this.toDomainEntity(dbSalesPerson);
+    const dbSalespeople = await this.repository.findOne({ where: { id } });
+    return this.toDomainEntity(dbSalespeople);
   }
 
   async create(salesperson: Salesperson): Promise<Salesperson> {
-    const dbSalesPerson = await this.repository.save({
+    const dbSalesperson = await this.repository.save({
       address: salesperson.address,
       email: salesperson.email,
       name: salesperson.name,
@@ -29,20 +29,20 @@ export class SalespersonOrmRepository implements SalespersonRepository {
       password: salesperson.password,
       phone: salesperson.phone,
     });
-    return this.toDomainEntity(dbSalesPerson);
+    return this.toDomainEntity(dbSalesperson);
   }
 
   async delete(id: number): Promise<void> {
-    const dbSalesPerson = await this.repository.findOne({ where: { id } });
-    await this.repository.remove(dbSalesPerson);
+    const dbSalesperson = await this.repository.findOne({ where: { id } });
+    await this.repository.remove(dbSalesperson);
   }
 
   async update(salesperson: Salesperson): Promise<Salesperson> {
     await this.repository.update({ id: salesperson.id }, salesperson);
-    const updatedSalesPerson = await this.repository.findOne({
+    const updatedSalesperson = await this.repository.findOne({
       where: { id: salesperson.id },
     });
-    return this.toDomainEntity(updatedSalesPerson);
+    return this.toDomainEntity(updatedSalesperson);
   }
 
   private toDomainEntity(salesperson: SalespersonEntity): Salesperson {

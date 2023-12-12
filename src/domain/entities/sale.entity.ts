@@ -1,7 +1,7 @@
 export class Sale {
   private _carId: number;
   private _clientId: number;
-  private _salesPersonId: number;
+  private _salespersonId: number;
   private _finalPrice: number;
   private _discount: number;
 
@@ -41,12 +41,12 @@ export class Sale {
     return this;
   }
 
-  get salesPersonId() {
-    return this._salesPersonId;
+  get salespersonId() {
+    return this._salespersonId;
   }
 
-  setSalesPersonId(salesPersonId: number) {
-    this._salesPersonId = salesPersonId;
+  setSalespersonId(salespersonId: number) {
+    this._salespersonId = salespersonId;
     return this;
   }
 
