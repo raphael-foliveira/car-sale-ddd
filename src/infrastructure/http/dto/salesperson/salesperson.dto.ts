@@ -1,27 +1,25 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { CreateSalespersonRequestDto } from './create-salesperson.dto';
 
-export class ClientResponseDto {
+export class SalespersonResponseDto extends CreateSalespersonRequestDto {
   @ApiProperty()
   id: number;
-
-  @ApiProperty()
-  name: string;
 
   @ApiProperty()
   email: string;
 
   @ApiProperty()
-  phone: string;
+  password: string;
 
   @ApiProperty()
-  nationalId: string;
+  phone: string;
 
   @ApiProperty()
   address: string;
 
   @ApiProperty()
-  createdAt: Date;
+  name: string;
 
   @ApiProperty()
-  updatedAt: Date;
+  nationalId: string;
 }
