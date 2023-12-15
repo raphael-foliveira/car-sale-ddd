@@ -1,4 +1,4 @@
-import { Car } from '../entities/car.entity';
+import { Client } from '../entities/client.entity';
 import { BaseRepository } from './base.repository';
 
-export interface ClientRepository extends BaseRepository<Car> {}
+export interface ClientRepository extends BaseRepository<Client> {}
