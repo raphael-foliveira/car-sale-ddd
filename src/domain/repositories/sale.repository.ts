@@ -1,9 +1,4 @@
 import { Sale } from '../entities/sale.entity';
+import { BaseRepository } from './base.repository';
 
-export interface SaleRepository {
-  findAll(): Promise<Sale[]>;
-  findById(id: number): Promise<Sale>;
-  create(sale: Sale): Promise<Sale>;
-  delete(id: number): Promise<void>;
-  update(sale: Sale): Promise<Sale>;
-}
+export interface SaleRepository extends BaseRepository<Sale> {}

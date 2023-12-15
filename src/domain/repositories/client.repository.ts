@@ -1,9 +1,4 @@
-import { Client } from '../entities/client.entity';
+import { Car } from '../entities/car.entity';
+import { BaseRepository } from './base.repository';
 
-export interface ClientRepository {
-  findAll(): Promise<Client[]>;
-  findById(id: number): Promise<Client>;
-  create(client: Client): Promise<Client>;
-  delete(id: number): Promise<void>;
-  update(client: Client): Promise<Client>;
-}
+export interface ClientRepository extends BaseRepository<Car> {}
