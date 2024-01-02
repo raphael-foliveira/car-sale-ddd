@@ -45,8 +45,9 @@ export class SaleController {
     return this.service.update(id, sale);
   }
 
-  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiResponse({ status: HttpStatus.NO_CONTENT })
   delete(@Param('id') id: number) {
     return this.service.delete(id);
   }
