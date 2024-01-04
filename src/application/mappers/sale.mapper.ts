@@ -7,7 +7,7 @@ import { SaleDetailedDto } from '../dto/sale/sale-detailed.dto';
 import { SaleDto } from '../dto/sale/sale.dto';
 import { UpdateSaleDto } from '../dto/sale/update-sale.dto';
 
-function updateEntity(sale: Sale, saleDto: UpdateSaleDto): Sale {
+const updateEntity = (sale: Sale, saleDto: UpdateSaleDto): Sale => {
   return {
     ...sale,
     carId: saleDto.carId ?? sale.carId,
@@ -16,9 +16,9 @@ function updateEntity(sale: Sale, saleDto: UpdateSaleDto): Sale {
     finalPrice: saleDto.finalPrice ?? sale.finalPrice,
     discount: saleDto.discount ?? sale.discount,
   };
-}
+};
 
-function createDtoToEntity(sale: CreateSaleDto): Sale {
+const createDtoToEntity = (sale: CreateSaleDto): Sale => {
   return {
     carId: sale.carId,
     clientId: sale.clientId,
@@ -26,9 +26,9 @@ function createDtoToEntity(sale: CreateSaleDto): Sale {
     finalPrice: sale.finalPrice,
     discount: sale.discount,
   };
-}
+};
 
-function toDto(sale: Sale): SaleDto {
+const toDto = (sale: Sale): SaleDto => {
   return {
     id: sale.id,
     createdAt: sale.createdAt,
@@ -39,14 +39,14 @@ function toDto(sale: Sale): SaleDto {
     salespersonId: sale.salespersonId,
     clientId: sale.clientId,
   };
-}
+};
 
-function toDetailedDto(
+const toDetailedDto = (
   sale: Sale,
   car: Car,
   salesperson: Salesperson,
   client: Client,
-): SaleDetailedDto {
+): SaleDetailedDto => {
   return {
     id: sale.id,
     createdAt: sale.createdAt,
@@ -80,7 +80,7 @@ function toDetailedDto(
       updatedAt: client.updatedAt,
     },
   };
-}
+};
 
 export const saleMapper = {
   updateEntity,

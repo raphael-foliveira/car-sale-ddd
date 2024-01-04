@@ -3,7 +3,7 @@ import { ClientDto } from '../dto/client/client.dto';
 import { CreateClientDto } from '../dto/client/create-client.dto';
 import { UpdateClientDto } from '../dto/client/update-client.dto';
 
-function updateEntity(client: Client, clientDto: UpdateClientDto): Client {
+const updateEntity = (client: Client, clientDto: UpdateClientDto): Client => {
   return {
     ...client,
     email: clientDto.email ?? client.email,
@@ -11,9 +11,9 @@ function updateEntity(client: Client, clientDto: UpdateClientDto): Client {
     address: clientDto.address ?? client.address,
     password: clientDto.password ?? client.password,
   };
-}
+};
 
-function createDtoToEntity(client: CreateClientDto): Client {
+const createDtoToEntity = (client: CreateClientDto): Client => {
   return {
     nationalId: client.nationalId,
     name: client.name,
@@ -22,9 +22,9 @@ function createDtoToEntity(client: CreateClientDto): Client {
     phone: client.phone,
     address: client.address,
   };
-}
+};
 
-function toDto(client: Client): ClientDto {
+const toDto = (client: Client): ClientDto => {
   return {
     id: client.id,
     name: client.name,
@@ -35,7 +35,7 @@ function toDto(client: Client): ClientDto {
     createdAt: client.createdAt,
     updatedAt: client.updatedAt,
   };
-}
+};
 
 export const clientMapper = {
   updateEntity,

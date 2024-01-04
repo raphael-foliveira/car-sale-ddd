@@ -3,7 +3,7 @@ import { CarDto } from '../dto/car/car.dto';
 import { CreateCarDto } from '../dto/car/create-car.dto';
 import { UpdateCarDto } from '../dto/car/update-car.dto';
 
-function updateEntity(car: Car, carDto: UpdateCarDto): Car {
+const updateEntity = (car: Car, carDto: UpdateCarDto): Car => {
   return {
     ...car,
     brand: carDto.brand ?? car.brand,
@@ -12,9 +12,9 @@ function updateEntity(car: Car, carDto: UpdateCarDto): Car {
     year: carDto.year ?? car.year,
     price: carDto.price ?? car.price,
   };
-}
+};
 
-function createDtoToEntity(car: CreateCarDto): Car {
+const createDtoToEntity = (car: CreateCarDto): Car => {
   return {
     brand: car.brand,
     color: car.color,
@@ -22,9 +22,9 @@ function createDtoToEntity(car: CreateCarDto): Car {
     year: car.year,
     price: car.price,
   };
-}
+};
 
-function toDto(car: Car): CarDto {
+const toDto = (car: Car): CarDto => {
   return {
     id: car.id,
     brand: car.brand,
@@ -33,7 +33,7 @@ function toDto(car: Car): CarDto {
     year: car.year,
     price: car.price,
   };
-}
+};
 
 export const carMapper = {
   updateEntity,

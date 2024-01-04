@@ -3,10 +3,10 @@ import { CreateSalespersonDto } from '../dto/salesperson/create-salesperson.dto'
 import { SalespersonDto } from '../dto/salesperson/salesperson.dto';
 import { UpdateSalespersonDto } from '../dto/salesperson/update-salesperson.dto';
 
-function updateEntity(
+const updateEntity = (
   salesperson: Salesperson,
   salespersonDto: UpdateSalespersonDto,
-): Salesperson {
+): Salesperson => {
   return {
     ...salesperson,
     email: salespersonDto.email,
@@ -14,9 +14,9 @@ function updateEntity(
     phone: salespersonDto.phone,
     address: salespersonDto.address,
   };
-}
+};
 
-function createDtoToEntity(salesperson: CreateSalespersonDto): Salesperson {
+const createDtoToEntity = (salesperson: CreateSalespersonDto): Salesperson => {
   return {
     name: salesperson.name,
     nationalId: salesperson.nationalId,
@@ -25,9 +25,9 @@ function createDtoToEntity(salesperson: CreateSalespersonDto): Salesperson {
     phone: salesperson.phone,
     address: salesperson.address,
   };
-}
+};
 
-function toDto(salesperson: Salesperson): SalespersonDto {
+const toDto = (salesperson: Salesperson): SalespersonDto => {
   return {
     id: salesperson.id,
     name: salesperson.name,
@@ -36,7 +36,7 @@ function toDto(salesperson: Salesperson): SalespersonDto {
     phone: salesperson.phone,
     address: salesperson.address,
   };
-}
+};
 
 export const salespersonMapper = {
   updateEntity,
