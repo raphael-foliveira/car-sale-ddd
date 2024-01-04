@@ -9,7 +9,7 @@ async function bootstrap() {
   app.useGlobalFilters(new ApplicationExceptionFilter());
   const documentConfig = new DocumentBuilder().build();
 
-  const document = await SwaggerModule.createDocument(app, documentConfig);
+  const document = SwaggerModule.createDocument(app, documentConfig);
   SwaggerModule.setup('docs', app, document);
 
   await app.listen(3000);
