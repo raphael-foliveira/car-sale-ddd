@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 import { Sale } from '../../../../domain/entities/sale.entity';
 import { SaleRepository } from '../../../../domain/repositories/sale.repository';
 import { SaleEntity } from '../entities/sale.entity';
+import { saleOrmMapper } from '../mappers/sale.mapper';
 
 export class SaleOrmRepository implements SaleRepository {
   constructor(
@@ -13,7 +14,7 @@ export class SaleOrmRepository implements SaleRepository {
     const dbSales = await this.repository.find({
       relations: ['car', 'client', 'salesperson'],
     });
-    return dbSales.map(this.toDomainEntity);
+    return dbSales.map(saleOrmMapper.toDomainEntity);
   }
 
   async findById(id: number): Promise<Sale> {
@@ -21,7 +22,7 @@ export class SaleOrmRepository implements SaleRepository {
       where: { id },
       relations: ['car', 'client', 'salesperson'],
     });
-    return this.toDomainEntity(dbSale);
+    return saleOrmMapper.toDomainEntity(dbSale);
   }
 
   async create(sale: Sale): Promise<Sale> {
@@ -31,7 +32,7 @@ export class SaleOrmRepository implements SaleRepository {
       client: { id: sale.clientId },
       salesperson: { id: sale.salespersonId },
     });
-    return this.toDomainEntity(dbSale);
+    return saleOrmMapper.toDomainEntity(dbSale);
   }
   async delete(id: number): Promise<void> {
     const dbSale = await this.repository.findOne({ where: { id } });
@@ -43,18 +44,6 @@ export class SaleOrmRepository implements SaleRepository {
     const updatedSale = await this.repository.findOne({
       where: { id: sale.id },
     });
-    return this.toDomainEntity(updatedSale);
-  }
-
-  private toDomainEntity(sale: SaleEntity): Sale {
-    if (!sale) {
-      return;
-    }
-    return new Sale(sale.id, sale.createdAt, sale.updatedAt)
-      .setCarId(sale.car.id)
-      .setClientId(sale.client.id)
-      .setSalespersonId(sale.salesperson.id)
-      .setFinalPrice(sale.finalPrice)
-      .setDiscount(sale.discount);
+    return saleOrmMapper.toDomainEntity(updatedSale);
   }
 }

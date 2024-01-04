@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 import { Client } from '../../../../domain/entities/client.entity';
 import { ClientRepository } from '../../../../domain/repositories/client.repository';
 import { ClientEntity } from '../entities/client.entity';
+import { clientOrmMapper } from '../mappers/client.mapper';
 
 export class ClientOrmRepository implements ClientRepository {
   constructor(
@@ -12,12 +13,12 @@ export class ClientOrmRepository implements ClientRepository {
 
   async findAll(): Promise<Client[]> {
     const dbClients = await this.repository.find();
-    return dbClients.map(this.toDomainEntity);
+    return dbClients.map(clientOrmMapper.toDomainEntity);
   }
 
   async findById(id: number): Promise<Client> {
     const dbClient = await this.repository.findOne({ where: { id } });
-    return this.toDomainEntity(dbClient);
+    return clientOrmMapper.toDomainEntity(dbClient);
   }
 
   async create(client: Client): Promise<Client> {
@@ -29,7 +30,7 @@ export class ClientOrmRepository implements ClientRepository {
       password: client.password,
       phone: client.phone,
     });
-    return this.toDomainEntity(dbClient);
+    return clientOrmMapper.toDomainEntity(dbClient);
   }
 
   async delete(id: number): Promise<void> {
@@ -42,19 +43,6 @@ export class ClientOrmRepository implements ClientRepository {
     const updatedClient = await this.repository.findOne({
       where: { id: client.id },
     });
-    return this.toDomainEntity(updatedClient);
-  }
-
-  private toDomainEntity(client: ClientEntity): Client {
-    if (!client) {
-      return;
-    }
-    return new Client(client.id, client.createdAt, client.updatedAt)
-      .setNationalId(client.nationalId)
-      .setName(client.name)
-      .setEmail(client.email)
-      .setPassword(client.password)
-      .setPhone(client.phone)
-      .setAddress(client.address);
+    return clientOrmMapper.toDomainEntity(updatedClient);
   }
 }

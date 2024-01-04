@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 import { Car } from '../../../../domain/entities/car.entity';
 import { CarRepository } from '../../../../domain/repositories/car.repository';
 import { CarEntity } from '../entities/car.entity';
+import { carOrmMapper } from '../mappers/car.mapper';
 
 export class CarOrmRepository implements CarRepository {
   constructor(
@@ -11,11 +12,11 @@ export class CarOrmRepository implements CarRepository {
 
   async findAll(): Promise<Car[]> {
     const dbCars = await this.repository.find();
-    return dbCars.map(this.toDomainEntity);
+    return dbCars.map(carOrmMapper.toDomainEntity);
   }
   async findById(id: number): Promise<Car> {
     const dbCar = await this.repository.findOne({ where: { id } });
-    return this.toDomainEntity(dbCar);
+    return carOrmMapper.toDomainEntity(dbCar);
   }
 
   async create(car: Car): Promise<Car> {
@@ -26,7 +27,7 @@ export class CarOrmRepository implements CarRepository {
       year: car.year,
       price: car.price,
     });
-    return this.toDomainEntity(dbCar);
+    return carOrmMapper.toDomainEntity(dbCar);
   }
 
   async delete(id: number): Promise<void> {
@@ -37,18 +38,6 @@ export class CarOrmRepository implements CarRepository {
   async update(car: Car): Promise<Car> {
     await this.repository.update({ id: car.id }, car);
     const updatedCar = await this.repository.findOne({ where: { id: car.id } });
-    return this.toDomainEntity(updatedCar);
-  }
-
-  private toDomainEntity(car: CarEntity): Car {
-    if (!car) {
-      return;
-    }
-    return new Car(car.id, car.createdAt, car.updatedAt)
-      .setBrand(car.brand)
-      .setModel(car.model)
-      .setColor(car.color)
-      .setYear(car.year)
-      .setPrice(car.price);
+    return carOrmMapper.toDomainEntity(updatedCar);
   }
 }

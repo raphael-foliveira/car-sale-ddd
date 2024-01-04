@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 import { Salesperson } from '../../../../domain/entities/salesperson.entity';
 import { SalespersonRepository } from '../../../../domain/repositories/salesperson.repository';
 import { SalespersonEntity } from '../entities/salesperson.entity';
+import { salespersonOrmMapper } from '../mappers/salesperson.mapper';
 
 export class SalespersonOrmRepository implements SalespersonRepository {
   constructor(
@@ -12,12 +13,12 @@ export class SalespersonOrmRepository implements SalespersonRepository {
 
   async findAll(): Promise<Salesperson[]> {
     const dbSalespeople = await this.repository.find();
-    return dbSalespeople.map(this.toDomainEntity);
+    return dbSalespeople.map(salespersonOrmMapper.toDomainEntity);
   }
 
   async findById(id: number): Promise<Salesperson> {
     const dbSalespeople = await this.repository.findOne({ where: { id } });
-    return this.toDomainEntity(dbSalespeople);
+    return salespersonOrmMapper.toDomainEntity(dbSalespeople);
   }
 
   async create(salesperson: Salesperson): Promise<Salesperson> {
@@ -29,7 +30,7 @@ export class SalespersonOrmRepository implements SalespersonRepository {
       password: salesperson.password,
       phone: salesperson.phone,
     });
-    return this.toDomainEntity(dbSalesperson);
+    return salespersonOrmMapper.toDomainEntity(dbSalesperson);
   }
 
   async delete(id: number): Promise<void> {
@@ -42,23 +43,6 @@ export class SalespersonOrmRepository implements SalespersonRepository {
     const updatedSalesperson = await this.repository.findOne({
       where: { id: salesperson.id },
     });
-    return this.toDomainEntity(updatedSalesperson);
-  }
-
-  private toDomainEntity(salesperson: SalespersonEntity): Salesperson {
-    if (!salesperson) {
-      return;
-    }
-    return new Salesperson(
-      salesperson.id,
-      salesperson.createdAt,
-      salesperson.updatedAt,
-    )
-      .setName(salesperson.name)
-      .setNationalId(salesperson.nationalId)
-      .setEmail(salesperson.email)
-      .setPassword(salesperson.password)
-      .setPhone(salesperson.phone)
-      .setAddress(salesperson.address);
+    return salespersonOrmMapper.toDomainEntity(updatedSalesperson);
   }
 }
