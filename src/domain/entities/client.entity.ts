@@ -1,6 +1,6 @@
 import { Entity } from './base.entity';
 
-export interface Client extends Entity {
+export class Client extends Entity {
   nationalId: string;
   name: string;
   email: string;

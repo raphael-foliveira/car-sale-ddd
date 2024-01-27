@@ -1,6 +1,6 @@
 import { Entity } from './base.entity';
 
-export interface Sale extends Entity {
+export class Sale extends Entity {
   carId: number;
   clientId: number;
   salespersonId: number;
