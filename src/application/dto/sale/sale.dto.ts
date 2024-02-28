@@ -1,4 +1,4 @@
-export interface SaleDto {
+export class SaleDto {
   id: number;
   carId: number;
   clientId: number;

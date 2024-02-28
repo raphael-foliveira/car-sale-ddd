@@ -1,6 +1,10 @@
+import { IsString, Length } from 'class-validator';
 import { UpdateSalespersonDto } from './update-salesperson.dto';
 
-export interface CreateSalespersonDto extends UpdateSalespersonDto {
+export class CreateSalespersonDto extends UpdateSalespersonDto {
+  @IsString()
   name: string;
+  @IsString()
+  @Length(11)
   nationalId: string;
 }

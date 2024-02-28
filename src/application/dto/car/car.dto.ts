@@ -1,5 +1,5 @@
 import { CreateCarDto } from './create-car.dto';
 
-export interface CarDto extends CreateCarDto {
+export class CarDto extends CreateCarDto {
   id: number;
 }
