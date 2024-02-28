@@ -27,7 +27,7 @@ const createDtoToEntity = (salesperson: CreateSalespersonDto): Salesperson => {
   };
 };
 
-const toDto = (salesperson: Salesperson): Omit<SalespersonDto, 'password'> => {
+const toDto = (salesperson: Salesperson): SalespersonDto => {
   return {
     id: salesperson.id,
     name: salesperson.name,

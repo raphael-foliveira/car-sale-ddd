@@ -27,11 +27,11 @@ export class SaleUseCases {
     if (!sale) {
       throw new SaleNotFoundError();
     }
-    const [car, salesperson, client] = await Promise.all([
-      this.carRepository.findById(sale.car.id),
-      this.salespersonRepository.findById(sale.salesperson.id),
-      this.clientRepository.findById(sale.client.id),
-    ]);
+    const car = await this.carRepository.findById(sale.car.id);
+    const salesperson = await this.salespersonRepository.findById(
+      sale.salesperson.id,
+    );
+    const client = await this.clientRepository.findById(sale.client.id);
     return saleMapper.toDetailedDto(sale, car, salesperson, client);
   }
 

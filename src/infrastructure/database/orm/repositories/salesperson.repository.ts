@@ -14,7 +14,7 @@ export class SalespersonOrmRepository implements SalespersonRepository {
   }
 
   findById(id: number): Promise<Salesperson> {
-    return this.repository.findOne({ where: { id } });
+    return this.repository.findOne({ where: { id }, relations: ['sales'] });
   }
 
   create(salesperson: Salesperson): Promise<Salesperson> {
