@@ -1,9 +1,20 @@
-import { Entity } from './base.entity';
+import { Column, Entity } from 'typeorm';
+import { BaseEntity } from './base.entity';
 
-export class Car extends Entity {
+@Entity('cars')
+export class Car extends BaseEntity {
+  @Column()
   brand: string;
+
+  @Column()
   color: string;
+
+  @Column()
   model: string;
+
+  @Column()
   year: number;
+
+  @Column()
   price: number;
 }

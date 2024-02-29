@@ -2,35 +2,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Salesperson } from '../../../../domain/entities/salesperson.entity';
 import { SalespersonRepository } from '../../../../domain/repositories/salesperson.repository';
-import { SalespersonEntity } from '../entities/salesperson.entity';
-import { salespersonOrmMapper } from '../mappers/salesperson.mapper';
 
 export class SalespersonOrmRepository implements SalespersonRepository {
   constructor(
-    @InjectRepository(SalespersonEntity)
-    private repository: Repository<SalespersonEntity>,
+    @InjectRepository(Salesperson)
+    private repository: Repository<Salesperson>,
   ) {}
 
-  async findAll(): Promise<Salesperson[]> {
-    const dbSalespeople = await this.repository.find();
-    return dbSalespeople.map(salespersonOrmMapper.toDomainEntity);
+  findAll(): Promise<Salesperson[]> {
+    return this.repository.find();
   }
 
-  async findById(id: number): Promise<Salesperson> {
-    const dbSalespeople = await this.repository.findOne({ where: { id } });
-    return salespersonOrmMapper.toDomainEntity(dbSalespeople);
+  findById(id: number): Promise<Salesperson> {
+    return this.repository.findOne({ where: { id }, relations: ['sales'] });
   }
 
-  async create(salesperson: Salesperson): Promise<Salesperson> {
-    const dbSalesperson = await this.repository.save({
-      address: salesperson.address,
-      email: salesperson.email,
-      name: salesperson.name,
-      nationalId: salesperson.nationalId,
-      password: salesperson.password,
-      phone: salesperson.phone,
-    });
-    return salespersonOrmMapper.toDomainEntity(dbSalesperson);
+  create(salesperson: Salesperson): Promise<Salesperson> {
+    return this.repository.save(salesperson);
   }
 
   async delete(id: number): Promise<void> {
@@ -40,9 +28,6 @@ export class SalespersonOrmRepository implements SalespersonRepository {
 
   async update(salesperson: Salesperson): Promise<Salesperson> {
     await this.repository.update({ id: salesperson.id }, salesperson);
-    const updatedSalesperson = await this.repository.findOne({
-      where: { id: salesperson.id },
-    });
-    return salespersonOrmMapper.toDomainEntity(updatedSalesperson);
+    return this.findById(salesperson.id);
   }
 }

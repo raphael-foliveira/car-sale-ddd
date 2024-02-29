@@ -10,19 +10,21 @@ import { UpdateSaleDto } from '../dto/sale/update-sale.dto';
 const updateEntity = (sale: Sale, saleDto: UpdateSaleDto): Sale => {
   return {
     ...sale,
-    carId: saleDto.carId ?? sale.carId,
-    clientId: saleDto.clientId ?? sale.clientId,
-    salespersonId: saleDto.salespersonId ?? sale.salespersonId,
     finalPrice: saleDto.finalPrice ?? sale.finalPrice,
     discount: saleDto.discount ?? sale.discount,
   };
 };
 
-const createDtoToEntity = (sale: CreateSaleDto): Sale => {
+const createDtoToEntity = (
+  sale: CreateSaleDto,
+  car: Car,
+  client: Client,
+  salesperson: Salesperson,
+): Sale => {
   return {
-    carId: sale.carId,
-    clientId: sale.clientId,
-    salespersonId: sale.salespersonId,
+    car,
+    client,
+    salesperson,
     finalPrice: sale.finalPrice,
     discount: sale.discount,
   };
@@ -35,9 +37,9 @@ const toDto = (sale: Sale): SaleDto => {
     discount: sale.discount,
     updatedAt: sale.updatedAt,
     price: sale.finalPrice,
-    carId: sale.carId,
-    salespersonId: sale.salespersonId,
-    clientId: sale.clientId,
+    carId: sale.car.id,
+    salespersonId: sale.salesperson.id,
+    clientId: sale.client.id,
   };
 };
 

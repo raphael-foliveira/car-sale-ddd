@@ -1,9 +1,5 @@
 import { CreateSalespersonDto } from './create-salesperson.dto';
 
-export interface SalespersonDto
-  extends Pick<
-    CreateSalespersonDto,
-    Exclude<keyof CreateSalespersonDto, 'password'>
-  > {
+export type SalespersonDto = Omit<CreateSalespersonDto, 'password'> & {
   id: number;
-}
+};

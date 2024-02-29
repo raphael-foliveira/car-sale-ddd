@@ -27,16 +27,26 @@ export class SaleUseCases {
     if (!sale) {
       throw new SaleNotFoundError();
     }
-    const [car, salesperson, client] = await Promise.all([
-      this.carRepository.findById(sale.carId),
-      this.salespersonRepository.findById(sale.salespersonId),
-      this.clientRepository.findById(sale.clientId),
-    ]);
+    const car = await this.carRepository.findById(sale.car.id);
+    const salesperson = await this.salespersonRepository.findById(
+      sale.salesperson.id,
+    );
+    const client = await this.clientRepository.findById(sale.client.id);
     return saleMapper.toDetailedDto(sale, car, salesperson, client);
   }
 
   async create(sale: CreateSaleDto): Promise<SaleDto> {
-    const saleEntity = saleMapper.createDtoToEntity(sale);
+    const car = await this.carRepository.findById(sale.carId);
+    const salesperson = await this.salespersonRepository.findById(
+      sale.salespersonId,
+    );
+    const client = await this.clientRepository.findById(sale.clientId);
+    const saleEntity = saleMapper.createDtoToEntity(
+      sale,
+      car,
+      client,
+      salesperson,
+    );
     const newSale = await this.repository.create(saleEntity);
     return saleMapper.toDto(newSale);
   }
