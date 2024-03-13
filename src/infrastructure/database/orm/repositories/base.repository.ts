@@ -9,6 +9,7 @@ export class OrmRepository<T extends BaseEntity> implements BaseRepository<T> {
   findAll(): Promise<T[]> {
     return this.repository.find();
   }
+
   findById(id: number): Promise<T> {
     return this.repository.findOne({ where: { id } } as FindOneOptions<T>);
   }
