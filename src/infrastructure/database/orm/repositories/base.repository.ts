@@ -1,6 +1,6 @@
-import { FindOptionsWhere, Repository } from 'typeorm';
-import { BaseRepository } from '../../../../domain/repositories/base.repository';
+import { FindOneOptions, Repository } from 'typeorm';
 import { BaseEntity } from '../../../../domain/entities/base.entity';
+import { BaseRepository } from '../../../../domain/repositories/base.repository';
 
 export class OrmRepository<T extends BaseEntity> implements BaseRepository<T> {
   constructor(private repository: Repository<T>) {}
@@ -9,7 +9,7 @@ export class OrmRepository<T extends BaseEntity> implements BaseRepository<T> {
     return this.repository.find();
   }
   findById(id: number): Promise<T> {
-    return this.repository.findOneBy({ id } as FindOptionsWhere<T>);
+    return this.repository.findOne({ where: { id } } as FindOneOptions<T>);
   }
 
   create(entity: T): Promise<T> {
